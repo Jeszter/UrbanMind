@@ -33,8 +33,8 @@ function highlightCurrentPage() {
     else if (currentPath === '/certification' || currentPath.includes('certification')) {
         activePage = 'certification';
     }
-    else if (currentPath === '/language-learning' || currentPath.includes('language-learning')) {
-        activePage = 'language-learning';
+    else if (currentPath === '/language' || currentPath.includes('language')) {
+        activePage = 'language';
     }
     // Documents pages
     else if (currentPath === '/visa' || currentPath.includes('visa')) {
@@ -53,8 +53,8 @@ function highlightCurrentPage() {
     else if (currentPath === '/translation' || currentPath.includes('translation')) {
         activePage = 'translation';
     }
-    else if (currentPath === '/cultural-guide' || currentPath.includes('cultural-guide')) {
-        activePage = 'cultural-guide';
+    else if (currentPath === '/cultural' || currentPath.includes('cultural')) {
+        activePage = 'cultural';
     }
     else if (currentPath === '/social-events' || currentPath.includes('social-events')) {
         activePage = 'social-events';
@@ -82,13 +82,13 @@ function highlightCurrentPage() {
             'career': 'work',
             'courses': 'work',
             'certification': 'work',
-            'language-learning': 'work',
+            'language': 'work',
             'visa': 'docs',
             'registration': 'docs',
             'banking': 'docs',
             'legal': 'docs',
             'translation': 'lang',
-            'cultural-guide': 'lang',
+            'cultural': 'lang',
             'social-events': 'lang',
             'community': 'lang'
         };

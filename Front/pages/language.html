@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMind: Language Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/language.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <span class="hero-decoration plus-top">x</span>
+    <span class="hero-decoration circle-mid">o</span>
+    <span class="hero-decoration plus-bottom">+</span>
+
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+
+    <div class="dots-pattern dots-1"></div>
+    <div class="dots-pattern dots-2"></div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Language Learning with AI Assistant</h1>
+            <p>Master the local language faster with our AI-powered language learning tools. Practice conversation, expand your vocabulary, and improve your pronunciation with personalized assistance.</p>
+            <a href="#language" class="btn-main">Start Learning Now</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/language.png" alt="AI Language Assistant Robot" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="language" id="language">
+    <div class="language-learning-bg">
+        <div class="language-circle language-circle-1"></div>
+        <div class="language-circle language-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How Our AI Language Assistant Helps You</h2>
+        <div class="language-features">
+            <div class="language-feature-card fade-in">
+                <div class="language-feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Conversation Practice</h3>
+                <p>Practice real-life conversations with our AI assistant. Get instant feedback on your grammar, vocabulary, and pronunciation.</p>
+            </div>
+            <div class="language-feature-card fade-in">
+                <div class="language-feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Vocabulary Builder</h3>
+                <p>Learn essential words and phrases for everyday situations. Our AI adapts to your level and interests.</p>
+            </div>
+            <div class="language-feature-card fade-in">
+                <div class="language-feature-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Pronunciation Training</h3>
+                <p>Improve your accent with speech recognition technology that analyzes and corrects your pronunciation.</p>
+            </div>
+            <div class="language-feature-card fade-in">
+                <div class="language-feature-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your improvement with detailed analytics and personalized recommendations for further study.</p>
+            </div>
+        </div>
+
+        <div class="ai-chat fade-in">
+            <div class="ai-chat-header">
+                <div class="ai-chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="ai-chat-title">
+                    <h3>AI Language Assistant</h3>
+                    <p>Practice conversation in a safe, judgment-free environment</p>
+                </div>
+            </div>
+            <div class="ai-chat-container">
+                <div class="ai-chat-messages">
+                    <div class="ai-message">
+                        Hello! I'm your AI language assistant. I'm here to help you practice speaking in a new language. What would you like to talk about today?
+                    </div>
+                    <div class="user-message">
+                        Hi! I'd like to practice introducing myself.
+                    </div>
+                    <div class="ai-message">
+                        Great! Let's practice introductions. How would you say "Hello, my name is [your name]" in the language you're learning?
+                    </div>
+                </div>
+                <div class="ai-chat-input">
+                    <input type="text" placeholder="Type your message here...">
+                    <button><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="language-exercises fade-in">
+            <div class="exercise-tabs">
+                <button class="exercise-tab active" data-tab="vocabulary">Vocabulary</button>
+                <button class="exercise-tab" data-tab="grammar">Grammar</button>
+                <button class="exercise-tab" data-tab="listening">Listening</button>
+            </div>
+            <div class="exercise-content">
+                <div class="exercise-item">
+                    <div class="exercise-question">Choose the correct translation for "Hello":</div>
+                    <div class="exercise-options">
+                        <div class="exercise-option">
+                            <input type="radio" name="question1" id="q1a1">
+                            <label for="q1a1">Привет</label>
+                        </div>
+                        <div class="exercise-option">
+                            <input type="radio" name="question1" id="q1a2">
+                            <label for="q1a2">Спасибо</label>
+                        </div>
+                        <div class="exercise-option">
+                            <input type="radio" name="question1" id="q1a3">
+                            <label for="q1a3">Пожалуйста</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-item">
+                    <div class="exercise-question">Complete the sentence: "My name ___ John."</div>
+                    <div class="exercise-options">
+                        <div class="exercise-option">
+                            <input type="radio" name="question2" id="q2a1">
+                            <label for="q2a1">is</label>
+                        </div>
+                        <div class="exercise-option">
+                            <input type="radio" name="question2" id="q2a2">
+                            <label for="q2a2">am</label>
+                        </div>
+                        <div class="exercise-option">
+                            <input type="radio" name="question2" id="q2a3">
+                            <label for="q2a3">are</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="exercise-submit">Check Answers</button>
+            </div>
+        </div>
+
+        <div class="progress-section fade-in">
+            <div class="progress-header">
+                <h2>Your Learning Progress</h2>
+                <a href="#" class="btn-main">View Detailed Report</a>
+            </div>
+            <div class="progress-stats">
+                <div class="progress-stat">
+                    <div class="progress-number">87%</div>
+                    <div class="progress-label">Vocabulary Mastery</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-number">72%</div>
+                    <div class="progress-label">Grammar Accuracy</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-number">64%</div>
+                    <div class="progress-label">Speaking Fluency</div>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-label">
+                    <span>Daily Goal</span>
+                    <span>5/7 days</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 71%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Start Your Language Journey Today</h2>
+        <p>Join thousands of successful learners who have improved their language skills with our AI-powered tools.</p>
+        <a href="#home" class="btn-footer">Get Started Now</a>
+    </div>
+</footer>
+
+<script>
+
+
+    // Tab functionality
+    document.querySelectorAll('.exercise-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            document.querySelectorAll('.exercise-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Here you would typically load different content based on the tab
+            // For this example, we'll just change the text
+            const tabName = tab.getAttribute('data-tab');
+            document.querySelector('.exercise-content h3').textContent = `${tabName.charAt(0).toUpperCase() + tabName.slice(1)} Exercises`;
+        });
+    });
+
+    // Chat functionality
+    const chatInput = document.querySelector('.ai-chat-input input');
+    const chatButton = document.querySelector('.ai-chat-input button');
+    const chatMessages = document.querySelector('.ai-chat-messages');
+
+    function addMessage(text, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add(isUser ? 'user-message' : 'ai-message');
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatButton.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+
+            // Simulate AI response after a short delay
+            setTimeout(() => {
+                const responses = [
+                    "That's a great sentence! Let's try another one.",
+                    "Good job! Now try to use that in a full conversation.",
+                    "I notice you're improving. Let's practice some more.",
+                    "Excellent! Your pronunciation is getting better."
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, false);
+            }, 1000);
+        }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            chatButton.click();
+        }
+    });
+
+    // Exercise checking
+    const submitButton = document.querySelector('.exercise-submit');
+    submitButton.addEventListener('click', () => {
+        const options = document.querySelectorAll('.exercise-option');
+        options.forEach(option => {
+            const input = option.querySelector('input');
+            if (input.checked) {
+                // Simulate correct/incorrect answers
+                if (input.id === 'q1a1' || input.id === 'q2a1') {
+                    option.classList.add('correct');
+                } else {
+                    option.classList.add('incorrect');
+                }
+            }
+        });
+
+        // Show message
+        setTimeout(() => {
+            alert('Answers submitted! Keep practicing to improve your skills.');
+        }, 500);
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+    });
+</script>
+
+
+
+<script>
+
+    fetch('/header.html')
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            console.log("Header loaded successfully");
+            document.getElementById('header-container').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            document.getElementById('header-container').innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+</script>
+
+</body>
+</html>

@@ -57,6 +57,16 @@ async def jobs():
 async def translation():
     return FileResponse(pages_dir / "translation.html")
 
+@app.get("/cultural")
+async def cultural():
+    return FileResponse(pages_dir / "cultural.html")
+
+
+@app.get("/language")
+async def cultural():
+    return FileResponse(pages_dir / "language.html")
+
+
 
 
 

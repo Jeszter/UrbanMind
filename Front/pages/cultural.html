@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Guide - UrbanMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/culture.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <span class="hero-decoration plus-top">x</span>
+    <span class="hero-decoration circle-mid">o</span>
+    <span class="hero-decoration plus-bottom">+</span>
+
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+
+    <div class="dots-pattern dots-1"></div>
+    <div class="dots-pattern dots-2"></div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Cultural Guide</h1>
+            <p>Discover the rich cultural heritage of your city with our AI-powered cultural guide. We'll automatically detect your location and show you the most interesting cultural sites nearby.</p>
+            <a href="#cultural-guide" class="btn-main">Explore Culture</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/turista.png" alt="AI Cultural Guide Assistant" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="cultural-guide-section" id="cultural-guide">
+    <div class="container">
+        <h2 class="sections-heading">Discover Cultural Treasures</h2>
+
+        <div class="location-detection fade-in">
+            <h3>Location-Based Cultural Guide</h3>
+            <p>We'll automatically detect your location to show the most interesting cultural sites in your city.</p>
+
+            <div class="location-status detecting">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Detecting your location...</span>
+            </div>
+
+            <div class="city-selector">
+                <p>Or select your city manually:</p>
+                <select id="city-select">
+                    <option value="">Select a city</option>
+                    <option value="kosice">Košice, Slovakia</option>
+                    <option value="bratislava">Bratislava, Slovakia</option>
+                    <option value="prague">Prague, Czech Republic</option>
+                    <option value="budapest">Budapest, Hungary</option>
+                    <option value="warsaw">Warsaw, Poland</option>
+                    <option value="vienna">Vienna, Austria</option>
+                    <option value="berlin">Berlin, Germany</option>
+                    <option value="paris">Paris, France</option>
+                    <option value="london">London, UK</option>
+                    <option value="rome">Rome, Italy</option>
+                </select>
+                <button id="update-location">Update Location</button>
+            </div>
+
+            <div class="category-filters">
+                <div class="category-filter active" data-category="all">All</div>
+                <div class="category-filter" data-category="historic">Historic Sites</div>
+                <div class="category-filter" data-category="museums">Museums</div>
+                <div class="category-filter" data-category="theaters">Theaters</div>
+                <div class="category-filter" data-category="religious">Religious Sites</div>
+                <div class="category-filter" data-category="parks">Parks & Nature</div>
+            </div>
+        </div>
+
+        <div class="cultural-sites-container">
+            <div class="distance-tabs">
+                <div class="distance-tab active" data-distance="all">All Distances</div>
+                <div class="distance-tab" data-distance="0-2">0-2 km</div>
+                <div class="distance-tab" data-distance="2-5">2-5 km</div>
+                <div class="distance-tab" data-distance="5-10">5-10 km</div>
+            </div>
+
+            <div class="distance-section" id="distance-0-2">
+                <h3 class="distance-heading"><i class="fas fa-walking"></i> Within 2 km</h3>
+                <div class="cultural-sites-grid" id="sites-0-2">
+                    <!-- Sites within 2 km will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="distance-section" id="distance-2-5">
+                <h3 class="distance-heading"><i class="fas fa-bicycle"></i> 2-5 km</h3>
+                <div class="cultural-sites-grid" id="sites-2-5">
+                    <!-- Sites within 2-5 km will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="distance-section" id="distance-5-10">
+                <h3 class="distance-heading"><i class="fas fa-car"></i> 5-10 km</h3>
+                <div class="cultural-sites-grid" id="sites-5-10">
+                    <!-- Sites within 5-10 km will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <h3 class="sections-heading">Ask About City History</h3>
+            <div class="chat-container" id="chat-container">
+                <div class="chat-message bot">
+                    <div class="message-bubble">
+                        Hello! I'm your cultural guide assistant. Ask me about the history, culture, or interesting facts about your city!
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Ask about city history...">
+                <button class="chat-send" id="chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="features-bg">
+        <div class="features-circle features-circle-1"></div>
+        <div class="features-circle features-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How Our Cultural Guide Works</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Location Detection</h3>
+                <p>Our AI automatically detects your location to provide the most relevant cultural sites for your city and region.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <h3>Smart Filtering</h3>
+                <p>We filter through thousands of cultural sites to recommend only the most interesting and significant places in your area.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Popularity Analysis</h3>
+                <p>Our neural network analyzes visitor data and reviews to rank the best cultural sites for tourists and locals.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Coverage</h3>
+                <p>From Košice to Paris, we cover cultural sites in dozens of cities worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Explore Your City's Culture</h2>
+        <p>Join thousands of cultural explorers who have discovered hidden gems and iconic landmarks with UrbanMind's intelligent cultural guide.</p>
+        <a href="#cultural-guide" class="btn-footer">Discover Culture</a>
+    </div>
+</footer>
+
+<script>
+    // Cultural sites database by city with distances
+    const culturalSitesByCity = {
+        'kosice': [
+            {
+                name: 'St. Elisabeth Cathedral',
+                type: 'Cathedral',
+                description: 'The largest church in Slovakia and the easternmost Gothic cathedral in Europe, featuring stunning architecture and rich history.',
+                image: 'https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.8,
+                address: 'Hlavná 48, 040 01 Košice',
+                category: 'religious',
+                distance: 0.8
+            },
+            {
+                name: 'Košice State Theater',
+                type: 'Theater',
+                description: 'Beautiful historic theater hosting opera, ballet and drama performances in a magnificent Neo-Baroque building.',
+                image: 'https://images.unsplash.com/photo-1503095396549-807759245b35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.6,
+                address: 'Hlavná 58, 040 01 Košice',
+                category: 'theaters',
+                distance: 1.2
+            },
+            {
+                name: 'Urban Tower',
+                type: 'Historic Tower',
+                description: 'Historic tower with panoramic views of the city and exhibitions about Košice history and urban development.',
+                image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.4,
+                address: 'Hlavná 46, 040 01 Košice',
+                category: 'historic',
+                distance: 0.9
+            },
+            {
+                name: 'East Slovak Museum',
+                type: 'Museum',
+                description: 'One of the oldest and largest museums in Slovakia with extensive historical, archaeological and art collections.',
+                image: 'https://images.unsplash.com/photo-1566378246598-5b11a0b4869e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.5,
+                address: 'Námestie Maratónu mieru 2, 040 01 Košice',
+                category: 'museums',
+                distance: 3.5
+            },
+            {
+                name: 'St. Michael Chapel',
+                type: 'Chapel',
+                description: 'Beautiful Gothic chapel next to the cathedral with interesting architectural details and historical significance.',
+                image: 'https://images.unsplash.com/photo-1603383923313-8a882113e7d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.3,
+                address: 'Hlavná 50, 040 01 Košice',
+                category: 'religious',
+                distance: 0.7
+            },
+            {
+                name: 'City Park',
+                type: 'Park',
+                description: 'Beautiful park with walking paths, fountains, recreational areas and seasonal events in the heart of the city.',
+                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.2,
+                address: 'Park Anička, 040 01 Košice',
+                category: 'parks',
+                distance: 6.2
+            }
+        ],
+        'bratislava': [
+            {
+                name: 'Bratislava Castle',
+                type: 'Castle',
+                description: 'Iconic castle overlooking the city with museums, historical exhibitions and panoramic views of the Danube.',
+                image: 'https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.7,
+                address: 'Hrad, 811 06 Bratislava',
+                category: 'historic',
+                distance: 1.5
+            },
+            {
+                name: 'St. Martin Cathedral',
+                type: 'Cathedral',
+                description: 'Gothic cathedral where Hungarian kings were crowned for centuries, featuring impressive architecture.',
+                image: 'https://images.unsplash.com/photo-1603383923313-8a882113e7d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.5,
+                address: 'Rudnayovo námestie 1, 811 01 Bratislava',
+                category: 'religious',
+                distance: 2.8
+            }
+        ],
+        'prague': [
+            {
+                name: 'Prague Castle',
+                type: 'Castle',
+                description: 'Largest ancient castle complex in the world with stunning architecture, museums and historical significance.',
+                image: 'https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.9,
+                address: 'Hradčany, 119 08 Prague',
+                category: 'historic',
+                distance: 3.2
+            },
+            {
+                name: 'Charles Bridge',
+                type: 'Historic Bridge',
+                description: 'Historic bridge decorated with statues offering beautiful city views and connecting Old Town with Lesser Town.',
+                image: 'https://images.unsplash.com/photo-1536627217140-899b0bcb5905?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                rating: 4.8,
+                address: 'Karlův most, 110 00 Prague',
+                category: 'historic',
+                distance: 1.8
+            }
+        ]
+    };
+
+    // City names for display
+    const cityNames = {
+        'kosice': 'Košice, Slovakia',
+        'bratislava': 'Bratislava, Slovakia',
+        'prague': 'Prague, Czech Republic',
+        'budapest': 'Budapest, Hungary',
+        'warsaw': 'Warsaw, Poland',
+        'vienna': 'Vienna, Austria',
+        'berlin': 'Berlin, Germany',
+        'paris': 'Paris, France',
+        'london': 'London, UK',
+        'rome': 'Rome, Italy'
+    };
+
+    // City history information for chat
+    const cityHistory = {
+        'kosice': {
+            name: 'Košice',
+            founded: '13th century',
+            population: '240,000',
+            facts: [
+                'Košice is the second largest city in Slovakia and the economic and cultural center of eastern Slovakia.',
+                'It was the first city in Europe to be granted its own coat of arms in 1369.',
+                'The city has a well-preserved historical center with the Gothic St. Elisabeth Cathedral as its centerpiece.',
+                'Košice was the European Capital of Culture in 2013.'
+            ],
+            landmarks: [
+                'St. Elisabeth Cathedral - the largest church in Slovakia',
+                'Urban Tower - a historic bell tower from the 14th century',
+                'State Theater - beautiful Neo-Baroque building from 1899'
+            ]
+        },
+        'bratislava': {
+            name: 'Bratislava',
+            founded: '907 AD',
+            population: '430,000',
+            facts: [
+                'Bratislava is the capital and largest city of Slovakia.',
+                'It is the only national capital that borders two independent countries (Austria and Hungary).',
+                'The city was the coronation city for Hungarian kings for almost 300 years.',
+                'Bratislava Castle offers panoramic views of the city and three countries.'
+            ],
+            landmarks: [
+                'Bratislava Castle - overlooking the Danube river',
+                'St. Martin Cathedral - coronation church of Hungarian kings',
+                'Old Town - historic center with charming streets'
+            ]
+        },
+        'prague': {
+            name: 'Prague',
+            founded: '8th century',
+            population: '1.3 million',
+            facts: [
+                'Prague is the capital and largest city of the Czech Republic.',
+                'It is known as the "City of a Hundred Spires" due to its many historical towers and church spires.',
+                'The historic center of Prague is a UNESCO World Heritage Site.',
+                'Prague Castle is the largest ancient castle complex in the world.'
+            ],
+            landmarks: [
+                'Prague Castle - largest castle complex in the world',
+                'Charles Bridge - historic bridge with 30 baroque statues',
+                'Old Town Square - famous for its astronomical clock'
+            ]
+        }
+    };
+
+    // DOM elements
+    const locationStatus = document.querySelector('.location-status');
+    const citySelect = document.getElementById('city-select');
+    const updateLocationBtn = document.getElementById('update-location');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const distanceTabs = document.querySelectorAll('.distance-tab');
+    const chatContainer = document.getElementById('chat-container');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+
+    // Current filter and distance
+    let currentFilter = 'all';
+    let currentDistance = 'all';
+    let currentCity = '';
+
+    // Function to group sites by distance
+    function groupSitesByDistance(sites) {
+        const groups = {
+            '0-2': [],
+            '2-5': [],
+            '5-10': []
+        };
+
+        sites.forEach(site => {
+            if (site.distance <= 2) {
+                groups['0-2'].push(site);
+            } else if (site.distance <= 5) {
+                groups['2-5'].push(site);
+            } else if (site.distance <= 10) {
+                groups['5-10'].push(site);
+            }
+        });
+
+        return groups;
+    }
+
+    // Function to update cultural sites based on city
+    function updateCulturalSites(cityCode) {
+        currentCity = cityCode;
+
+        // Get cultural sites for the selected city
+        const culturalSites = culturalSitesByCity[cityCode] || [];
+
+        if (culturalSites.length === 0) {
+            // Clear all distance sections
+            document.getElementById('sites-0-2').innerHTML = '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">No cultural sites available for this city.</p>';
+            document.getElementById('sites-2-5').innerHTML = '';
+            document.getElementById('sites-5-10').innerHTML = '';
+            return;
+        }
+
+        // Update location status
+        locationStatus.className = 'location-status detected';
+        locationStatus.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>Showing cultural sites in: <span class="detected-location">${cityNames[cityCode]}</span></span>
+            `;
+
+        // Filter sites by category if needed
+        const filteredSites = currentFilter === 'all'
+            ? culturalSites
+            : culturalSites.filter(site => site.category === currentFilter);
+
+        // Group sites by distance
+        const sitesByDistance = groupSitesByDistance(filteredSites);
+
+        // Update each distance section
+        updateDistanceSection('0-2', sitesByDistance['0-2']);
+        updateDistanceSection('2-5', sitesByDistance['2-5']);
+        updateDistanceSection('5-10', sitesByDistance['5-10']);
+
+        // Show/hide distance sections based on current distance filter
+        updateDistanceVisibility();
+    }
+
+    // Function to update a specific distance section
+    function updateDistanceSection(distance, sites) {
+        const section = document.getElementById(`sites-${distance}`);
+
+        if (sites.length === 0) {
+            section.innerHTML = `<p style="text-align: center; padding: 40px; color: var(--color-light-text);">No cultural sites in this distance range.</p>`;
+            return;
+        }
+
+        // Clear section
+        section.innerHTML = '';
+
+        // Add cultural site cards
+        sites.forEach(site => {
+            const culturalSiteCard = document.createElement('div');
+            culturalSiteCard.className = 'cultural-site-card fade-in';
+            culturalSiteCard.innerHTML = `
+                    <div class="cultural-site-image">
+                        <img src="${site.image}" alt="${site.name}">
+                        <div class="cultural-site-type">${site.type}</div>
+                        <div class="cultural-site-distance">${site.distance} km</div>
+                    </div>
+                    <div class="cultural-site-content">
+                        <div class="cultural-site-header">
+                            <h3>${site.name}</h3>
+                            <p>${site.description}</p>
+                        </div>
+                        <div class="cultural-site-info">
+                            <div class="cultural-site-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${site.address}</span>
+                            </div>
+                            <div class="cultural-site-rating">
+                                <i class="fas fa-star"></i> ${site.rating}
+                            </div>
+                        </div>
+                        <a href="#" class="cultural-site-link">Learn More</a>
+                    </div>
+                `;
+            section.appendChild(culturalSiteCard);
+        });
+    }
+
+    // Function to update distance section visibility based on current filter
+    function updateDistanceVisibility() {
+        const sections = document.querySelectorAll('.distance-section');
+
+        sections.forEach(section => {
+            const distance = section.id.replace('distance-', '');
+
+            if (currentDistance === 'all' || currentDistance === distance) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to detect user's location
+    function detectLocation() {
+        // In a real implementation, this would use a geolocation API
+        // For demo purposes, we'll simulate detection with a random city
+        const cities = Object.keys(culturalSitesByCity);
+        const randomCity = cities[Math.floor(Math.random() * cities.length)];
+
+        // Simulate API delay
+        setTimeout(() => {
+            updateCulturalSites(randomCity);
+            citySelect.value = randomCity;
+        }, 2000);
+    }
+
+    // Function to add message to chat
+    function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
+
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.className = 'message-bubble';
+        bubbleDiv.textContent = message;
+
+        messageDiv.appendChild(bubbleDiv);
+        chatContainer.appendChild(messageDiv);
+
+        // Scroll to bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Function to handle chat input
+    function handleChatInput() {
+        const message = chatInput.value.trim();
+        if (message === '') return;
+
+        // Add user message
+        addMessage(message, true);
+
+        // Clear input
+        chatInput.value = '';
+
+        // Simulate AI response
+        setTimeout(() => {
+            let response = "I'm not sure about that. Could you ask something about the city's history, culture, or landmarks?";
+
+            if (currentCity && cityHistory[currentCity]) {
+                const history = cityHistory[currentCity];
+
+                if (message.toLowerCase().includes('history') || message.toLowerCase().includes('founded')) {
+                    response = `${history.name} was founded in the ${history.founded}. ${history.facts[0]}`;
+                } else if (message.toLowerCase().includes('population')) {
+                    response = `The population of ${history.name} is approximately ${history.population} people.`;
+                } else if (message.toLowerCase().includes('landmark') || message.toLowerCase().includes('famous')) {
+                    response = `Some famous landmarks in ${history.name} include: ${history.landmarks.join(', ')}.`;
+                } else if (message.toLowerCase().includes('fact') || message.toLowerCase().includes('interesting')) {
+                    const randomFact = history.facts[Math.floor(Math.random() * history.facts.length)];
+                    response = `Here's an interesting fact: ${randomFact}`;
+                } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                    response = `Hello! I can tell you about ${history.name}'s history, population, landmarks, and interesting facts. What would you like to know?`;
+                }
+            } else if (!currentCity) {
+                response = "Please select a city first to get information about its history and culture.";
+            }
+
+            addMessage(response);
+        }, 1000);
+    }
+
+    // Event listeners
+    updateLocationBtn.addEventListener('click', () => {
+        const selectedCity = citySelect.value;
+        if (selectedCity) {
+            updateCulturalSites(selectedCity);
+        } else {
+            alert('Please select a city first.');
+        }
+    });
+
+    // Category filter event listeners
+    categoryFilters.forEach(filter => {
+        filter.addEventListener('click', () => {
+            // Remove active class from all filters
+            categoryFilters.forEach(f => f.classList.remove('active'));
+            // Add active class to clicked filter
+            filter.classList.add('active');
+            // Update current filter
+            currentFilter = filter.getAttribute('data-category');
+            // Update sites if a city is selected
+            const selectedCity = citySelect.value;
+            if (selectedCity) {
+                updateCulturalSites(selectedCity);
+            }
+        });
+    });
+
+    // Distance tab event listeners
+    distanceTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            distanceTabs.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            // Update current distance
+            currentDistance = tab.getAttribute('data-distance');
+            // Update visibility
+            updateDistanceVisibility();
+        });
+    });
+
+    // Chat event listeners
+    chatSend.addEventListener('click', handleChatInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleChatInput();
+        }
+    });
+
+    // Initialize
+    detectLocation();
+
+    // Mobile menu functionality
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+    });
+</script>
+
+
+<script>
+
+    fetch('/header.html')
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            console.log("Header loaded successfully");
+            document.getElementById('header-container').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            document.getElementById('header-container').innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+</script>
+
+</body>
+</html>
