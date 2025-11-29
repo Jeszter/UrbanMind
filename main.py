@@ -53,6 +53,11 @@ async def jobs():
     return FileResponse(pages_dir / "jobs.html")
 
 
+@app.get("/translation")
+async def translation():
+    return FileResponse(pages_dir / "translation.html")
+
+
 
 
 

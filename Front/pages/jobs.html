@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Job Search - UrbanMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/job.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+
+<section class="hero" id="home">
+    <span class="hero-decoration plus-top">x</span>
+    <span class="hero-decoration circle-mid">o</span>
+    <span class="hero-decoration plus-bottom">+</span>
+
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+
+    <div class="dots-pattern dots-1"></div>
+    <div class="dots-pattern dots-2"></div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Local Job Search</h1>
+            <p>Find the best job opportunities in your area with our AI-powered job search assistant. We'll automatically detect your location and provide the most relevant job sites for your country.</p>
+            <a href="#job-search" class="btn-main">Find Jobs Now</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/Job.png" alt="AI Job Search Assistant" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="job-search-section" id="job-search">
+    <div class="container">
+        <h2 class="sections-heading">Find Local Job Opportunities</h2>
+
+        <div class="location-detection fade-in">
+            <h3>Location-Based Job Search</h3>
+            <p>We'll automatically detect your location to show the most relevant job sites for your country.</p>
+
+            <div class="location-status detecting">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Detecting your location...</span>
+            </div>
+
+            <div class="country-selector">
+                <p>Or select your country manually:</p>
+                <select id="country-select">
+                    <option value="">Select a country</option>
+                    <option value="sk">Slovakia</option>
+                    <option value="cz">Czech Republic</option>
+                    <option value="pl">Poland</option>
+                    <option value="hu">Hungary</option>
+                    <option value="at">Austria</option>
+                    <option value="de">Germany</option>
+                    <option value="fr">France</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="us">United States</option>
+                    <option value="ca">Canada</option>
+                </select>
+                <button id="update-location">Update Location</button>
+            </div>
+        </div>
+
+        <div class="job-sites-container">
+            <h3 class="sections-heading">Recommended Job Sites</h3>
+            <div class="job-sites-grid">
+                <!-- Job sites will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="features-bg">
+        <div class="features-circle features-circle-1"></div>
+        <div class="features-circle features-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How Our Job Search Works</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Location Detection</h3>
+                <p>Our AI automatically detects your location to provide the most relevant job sites for your country and region.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <h3>Smart Filtering</h3>
+                <p>We filter through thousands of job sites to recommend only the most popular and reliable platforms in your area.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Popularity Analysis</h3>
+                <p>Our neural network analyzes job site traffic and user reviews to rank the best platforms for job seekers.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Coverage</h3>
+                <p>From Slovakia to the United States, we cover job sites in dozens of countries worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Find Your Dream Job Today</h2>
+        <p>Join thousands of successful job seekers who have found their perfect positions with UrbanMind's intelligent job search assistance.</p>
+        <a href="#job-search" class="btn-footer">Search Jobs Now</a>
+    </div>
+</footer>
+
+<script src="../js/job.js"></script>
+
+
+<script>
+    fetch('/header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('header-container').innerHTML = html;
+        })
+        .catch(error => {
+            document.getElementById('header-container').innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+
+</script>
+
+
+</body>
+</html>
