@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Guide - UrbanMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/culture.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <span class="hero-decoration plus-top">x</span>
+    <span class="hero-decoration circle-mid">o</span>
+    <span class="hero-decoration plus-bottom">+</span>
+
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+
+    <div class="dots-pattern dots-1"></div>
+    <div class="dots-pattern dots-2"></div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Cultural Guide</h1>
+            <p>Discover the rich cultural heritage of your city with our AI-powered cultural guide. We'll automatically detect your location and show you the most interesting cultural sites nearby.</p>
+            <a href="#cultural-guide" class="btn-main">Explore Culture</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/turista.png" alt="AI Cultural Guide Assistant" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="cultural-guide-section" id="cultural-guide">
+    <div class="container">
+        <h2 class="sections-heading">Discover Cultural Treasures</h2>
+
+        <div class="location-detection fade-in">
+            <h3>Location-Based Cultural Guide</h3>
+            <p>We'll automatically detect your location to show the most interesting cultural sites in your city.</p>
+
+            <div class="location-status detecting">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Detecting your location...</span>
+            </div>
+
+            <div class="city-selector">
+                <p>Or select your city manually:</p>
+                <select id="city-select">
+                    <option value="">Select a city</option>
+                    <option value="kosice">Košice, Slovakia</option>
+                    <option value="bratislava">Bratislava, Slovakia</option>
+                    <option value="prague">Prague, Czech Republic</option>
+                    <option value="budapest">Budapest, Hungary</option>
+                    <option value="warsaw">Warsaw, Poland</option>
+                    <option value="vienna">Vienna, Austria</option>
+                    <option value="berlin">Berlin, Germany</option>
+                    <option value="paris">Paris, France</option>
+                    <option value="london">London, UK</option>
+                    <option value="rome">Rome, Italy</option>
+                </select>
+                <button id="update-location">Update Location</button>
+            </div>
+
+            <div class="category-filters">
+                <div class="category-filter active" data-category="all">All</div>
+                <div class="category-filter" data-category="historic">Historic Sites</div>
+                <div class="category-filter" data-category="museums">Museums</div>
+                <div class="category-filter" data-category="theaters">Theaters</div>
+                <div class="category-filter" data-category="religious">Religious Sites</div>
+                <div class="category-filter" data-category="parks">Parks & Nature</div>
+            </div>
+        </div>
+
+        <div class="cultural-sites-container">
+            <div class="distance-tabs">
+                <div class="distance-tab active" data-distance="all">All Distances</div>
+                <div class="distance-tab" data-distance="0-2">0-2 km</div>
+                <div class="distance-tab" data-distance="2-5">2-5 km</div>
+                <div class="distance-tab" data-distance="5-10">5-10 km</div>
+            </div>
+
+            <div class="distance-section" id="distance-0-2">
+                <h3 class="distance-heading"><i class="fas fa-walking"></i> Within 2 km</h3>
+                <div class="cultural-sites-grid" id="sites-0-2"></div>
+            </div>
+
+            <div class="distance-section" id="distance-2-5">
+                <h3 class="distance-heading"><i class="fas fa-bicycle"></i> 2-5 km</h3>
+                <div class="cultural-sites-grid" id="sites-2-5"></div>
+            </div>
+
+            <div class="distance-section" id="distance-5-10">
+                <h3 class="distance-heading"><i class="fas fa-car"></i> 5-10 km</h3>
+                <div class="cultural-sites-grid" id="sites-5-10"></div>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <h3 class="sections-heading">Ask About City History</h3>
+            <div class="chat-container" id="chat-container">
+                <div class="chat-message bot">
+                    <div class="message-bubble">
+                        Hello! I'm your cultural guide assistant. Ask me about the history, culture, or interesting facts about your city!
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Ask about city history...">
+                <button class="chat-send" id="chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="features-bg">
+        <div class="features-circle features-circle-1"></div>
+        <div class="features-circle features-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How Our Cultural Guide Works</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Location Detection</h3>
+                <p>Our AI automatically detects your location to provide the most relevant cultural sites for your city and region.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <h3>Smart Filtering</h3>
+                <p>We filter through thousands of cultural sites to recommend only the most interesting and significant places in your area.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Popularity Analysis</h3>
+                <p>Our neural network analyzes visitor data and reviews to rank the best cultural sites for tourists and locals.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Coverage</h3>
+                <p>From Košice to Paris, we cover cultural sites in dozens of cities worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Explore Your City's Culture</h2>
+        <p>Join thousands of cultural explorers who have discovered hidden gems and iconic landmarks with UrbanMind's intelligent cultural guide.</p>
+        <a href="#cultural-guide" class="btn-footer">Discover Culture</a>
+    </div>
+</footer>
+
+<script src="../js/culture.js"></script>
+</body>
+</html>
