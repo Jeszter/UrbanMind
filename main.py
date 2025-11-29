@@ -15,6 +15,7 @@ from back.housing_backend import router as housing_router
 from back.neurohr_backend import router as neurohr_router
 from back.job_api import router as job_router
 from back.translation_api import router as translation_router
+from back.language_backend import router as language_router
 
 
 
@@ -102,6 +103,7 @@ app.include_router(housing_router, prefix="/housing")
 app.include_router(neurohr_router, prefix="/neurohr-api")
 app.include_router(job_router)
 app.include_router(translation_router)
+app.include_router(language_router, prefix="/api/language")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
