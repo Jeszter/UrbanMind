@@ -43,6 +43,6 @@ app.include_router(docs_router, prefix="/docs")
 app.include_router(language_router, prefix="/language")
 app.include_router(housing_router, prefix="/housing")
 
-# Запуск
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
