@@ -8,6 +8,161 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
+<style>
+    /* Добавляем стили для изображения вместо иконки */
+    .ai-chat-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    .ai-chat-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .ai-chat-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .ai-chat-avatar {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        overflow: hidden; /* Добавляем для корректного отображения изображения */
+    }
+
+    .ai-chat-title h3 {
+        margin: 0;
+        font-size: 1.3em;
+    }
+
+    .ai-chat-title p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+    }
+
+    .ai-chat-messages {
+        height: 400px;
+        overflow-y: auto;
+        padding: 20px;
+        background: #f8f9fa;
+    }
+
+    .message {
+        margin-bottom: 20px;
+        display: flex;
+    }
+
+    .message-user {
+        justify-content: flex-end;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 12px 18px;
+        border-radius: 18px;
+        position: relative;
+    }
+
+    .message-ai .message-bubble {
+        background: white;
+        border: 1px solid #e1e5e9;
+        border-bottom-left-radius: 4px;
+    }
+
+    .message-user .message-bubble {
+        background: #667eea;
+        color: white;
+        border-bottom-right-radius: 4px;
+    }
+
+    .quick-actions {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .quick-action {
+        background: #f8f9fa;
+        border: 1px solid #e1e5e9;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .quick-action:hover {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+    }
+
+    .ai-chat-input {
+        display: flex;
+        padding: 20px;
+        background: white;
+        border-top: 1px solid #e1e5e9;
+    }
+
+    #chat-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #e1e5e9;
+        border-radius: 25px;
+        outline: none;
+        font-size: 1em;
+    }
+
+    #chat-input:focus {
+        border-color: #667eea;
+    }
+
+    #send-button {
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    #send-button:hover:not(:disabled) {
+        background: #5a6fd8;
+    }
+
+    #send-button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 <body>
 <div id="header-container"></div>
 
@@ -54,7 +209,7 @@
         <div class="ai-chat-container fade-in">
             <div class="ai-chat-header">
                 <div class="ai-chat-avatar">
-                    <i class="fas fa-robot"></i>
+                    <img src="../img/head3.png" alt="AI Assistant Avatar">
                 </div>
                 <div class="ai-chat-title">
                     <h3>UrbanMind Assistant</h3>
@@ -64,7 +219,7 @@
             <div class="ai-chat-messages" id="chat-messages">
                 <div class="message message-ai">
                     <div class="message-bubble">
-                        Hello! I'm your UrbanMind assistant. I can help you find information about housing, documents, language learning, and other services for migrants. What do you need help with today?
+                        Hello! I'm your UrbanMind assistant. I can help you navigate the website and find the right services. What do you need help with today?
                         <div class="quick-actions">
                             <button class="quick-action" data-action="documents">Help with documents</button>
                             <button class="quick-action" data-action="housing">Find housing</button>
@@ -181,26 +336,193 @@
 
 
 
-    <script>
+<script>
 
-        fetch('/header.html')
-            .then(response => {
-                console.log("Response status:", response.status);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+    fetch('/header.html')
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            console.log("Header loaded successfully");
+            document.getElementById('header-container').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            document.getElementById('header-container').innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+
+    class UrbanMindChat {
+        constructor() {
+            this.chatHistory = [];
+            this.isProcessing = false;
+            this.init();
+        }
+
+        init() {
+            this.bindEvents();
+            this.loadChatHistory();
+        }
+
+        bindEvents() {
+            // Send button click
+            document.getElementById('send-button').addEventListener('click', () => this.sendMessage());
+
+            // Enter key in input
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !this.isProcessing) {
+                    this.sendMessage();
                 }
-                return response.text();
-            })
-            .then(html => {
-                console.log("Header loaded successfully");
-                document.getElementById('header-container').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error loading header:', error);
-                document.getElementById('header-container').innerHTML =
-                    `<div style="color: red;">Error loading header: ${error.message}</div>`;
             });
-    </script>
+
+            // Quick actions
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('quick-action')) {
+                    const action = e.target.dataset.action;
+                    this.handleQuickAction(action);
+                }
+            });
+        }
+
+        async sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+
+            if (!message || this.isProcessing) return;
+
+            this.addMessage('user', message);
+            input.value = '';
+            this.setProcessing(true);
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        chat_history: this.chatHistory,
+                        ui_language: 'en'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    this.addMessage('assistant', data.data.assistant_message, data.data.quick_actions);
+
+                    // Update chat history
+                    this.chatHistory.push(
+                        { role: 'user', content: message },
+                        { role: 'assistant', content: data.data.assistant_message }
+                    );
+
+                    this.saveChatHistory();
+                } else {
+                    throw new Error('Failed to get response');
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                this.addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
+            } finally {
+                this.setProcessing(false);
+            }
+        }
+
+        addMessage(role, content, quickActions = null) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message message-${role}`;
+
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.className = 'message-bubble';
+            bubbleDiv.textContent = content;
+
+            if (quickActions && role === 'assistant') {
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'quick-actions';
+
+                quickActions.forEach(action => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-action';
+                    button.textContent = action.label;
+                    button.dataset.action = action.action;
+                    button.dataset.section = action.section;
+                    actionsDiv.appendChild(button);
+                });
+
+                bubbleDiv.appendChild(actionsDiv);
+            }
+
+            messageDiv.appendChild(bubbleDiv);
+            messagesContainer.appendChild(messageDiv);
+
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        handleQuickAction(action) {
+            const actionMessages = {
+                'documents': 'I need help with official documents and forms',
+                'housing': 'I want to find housing accommodation',
+                'language': 'I want to learn the language',
+                'community': 'I want to find community events',
+                'cv_help': 'I need help with my CV',
+                'find_jobs': 'I want to find a job'
+            };
+
+            const message = actionMessages[action] || `Help with ${action}`;
+            document.getElementById('chat-input').value = message;
+            this.sendMessage();
+        }
+
+        setProcessing(processing) {
+            this.isProcessing = processing;
+            const button = document.getElementById('send-button');
+            const input = document.getElementById('chat-input');
+
+            if (processing) {
+                button.disabled = true;
+                input.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            } else {
+                button.disabled = false;
+                input.disabled = false;
+                button.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            }
+        }
+
+        saveChatHistory() {
+            localStorage.setItem('urbanmind_chat_history', JSON.stringify(this.chatHistory));
+        }
+
+        loadChatHistory() {
+            const saved = localStorage.getItem('urbanmind_chat_history');
+            if (saved) {
+                this.chatHistory = JSON.parse(saved);
+
+                // Display last few messages
+                const recentMessages = this.chatHistory.slice(-4);
+                recentMessages.forEach(msg => {
+                    this.addMessage(msg.role, msg.content);
+                });
+            }
+        }
+
+        navigateToSection(section) {
+            window.location.href = section;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        new UrbanMindChat();
+    });
+</script>
 
 </body>
 </html>

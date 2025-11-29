@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -17,7 +17,7 @@ from back.job_api import router as job_router
 from back.translation_api import router as translation_router
 from back.language_backend import router as language_router
 
-
+from back.chat_backend import router as chat_router
 
 app = FastAPI()
 
@@ -31,7 +31,6 @@ print(f"Pages dir: {pages_dir}")
 print(f"Components dir: {components_dir}")
 print(f"Header file exists: {(components_dir / 'header.html').exists()}")
 print("==================")
-
 
 @app.get("/header.html")
 async def get_header():
@@ -48,16 +47,13 @@ async def get_header():
 async def home():
     return FileResponse(pages_dir / "home.html")
 
-
 @app.get("/neurohr")
 async def neurohr():
     return FileResponse(pages_dir / "neurohr.html")
 
-
 @app.get("/jobs")
 async def jobs():
     return FileResponse(pages_dir / "jobs.html")
-
 
 @app.get("/translation")
 async def translation():
@@ -67,7 +63,6 @@ async def translation():
 async def cultural():
     return FileResponse(pages_dir / "cultural.html")
 
-
 @app.get("/language")
 async def language():
     return FileResponse(pages_dir / "language.html")
@@ -75,12 +70,6 @@ async def language():
 @app.get("/official")
 async def official():
     return FileResponse(pages_dir / "official.html")
-
-
-
-
-
-
 
 app.mount("/css", StaticFiles(directory=front_dir / "css"), name="css")
 app.mount("/js", StaticFiles(directory=front_dir / "js"), name="js")
@@ -104,6 +93,8 @@ app.include_router(neurohr_router, prefix="/neurohr-api")
 app.include_router(job_router)
 app.include_router(translation_router)
 app.include_router(language_router, prefix="/api/language")
+
+app.include_router(chat_router, prefix="/api")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
