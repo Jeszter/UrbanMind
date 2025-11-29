@@ -101,4 +101,11 @@ To begin using UrbanMind:
 
 ---
 
+
+<img width="2559" height="1361" alt="изображение" src="https://github.com/user-attachments/assets/4ab1c585-0897-4863-a622-01d6db25ad3e" />
+
+<img width="2559" height="1352" alt="изображение" src="https://github.com/user-attachments/assets/1c5faf07-41f0-4dbc-81cc-c94bb6caeaac" />
+
+
+
 **Welcome to a smarter, easier immigration journey with UrbanMind.** 🌐💙
