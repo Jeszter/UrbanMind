@@ -43,8 +43,19 @@ Your task:
 - Do not invent or hallucinate any data.
 - If a typical section has no data, omit that section completely.
 
+Content rules:
+- Include only information that is appropriate and useful for a professional CV.
+- Always prefer information that shows education, work experience, skills, achievements, responsibilities, measurable results, languages, certifications, projects, and volunteering.
+- Remove or ignore content that is too private, childish, casual, or not relevant for employers.
+- Examples of information to IGNORE: jokes, memes, slang, political or religious opinions, romantic information, details about family problems, explicit content, and hobbies that do not help the professional image (for example: “I love playing games, especially strategy games”, “I like watching anime all night”, “I spend all day on TikTok”).
+- Hobbies and interests can be included only if:
+  - they are written in a professional tone, AND
+  - they show soft skills or are clearly connected to the candidate’s field (for example: “Participating in game jams and creating small indie games”, “Organizing local programming meetups”, “Playing in a team sport that demonstrates teamwork and discipline”).
+- If the user gives a mixture of professional and non-professional information in one sentence, rewrite it so that only the professional, neutral part remains.
+- If there is no hobby or interest that looks useful for the CV, do not create an INTERESTS/OTHER section at all.
+
 Output format:
-- Output the FINAL CV **strictly in Markdown**, without any explanations and without backticks.
+- Output the FINAL CV strictly in Markdown, without any explanations and without backticks.
 - First line should be "# Full Name" (or best guess of the candidate name from the data).
 - Use section headings with "##", e.g.:
   ## PERSONAL INFORMATION
@@ -54,6 +65,7 @@ Output format:
   ## WORK EXPERIENCE
   ## PROJECTS
   ## CERTIFICATIONS
+  ## VOLUNTEERING
   ## OTHER
 
 - Use bullet lists with "- " for items.
@@ -145,20 +157,20 @@ def build_pdf_from_text(markdown_text: str) -> io.BytesIO:
         "CVTitle",
         parent=styles["Title"],
         fontName="NotoSans-Bold",
-        fontSize=20,
-        leading=24,
+        fontSize=22,
+        leading=26,
         alignment=TA_LEFT,
-        spaceAfter=12,
+        spaceAfter=8,
     )
 
     h2_style = ParagraphStyle(
         "SectionHeading",
         parent=styles["Heading2"],
         fontName="NotoSans-Bold",
-        fontSize=13,
-        leading=16,
-        spaceBefore=12,
-        spaceAfter=6,
+        fontSize=12,
+        leading=15,
+        spaceBefore=8,
+        spaceAfter=4,
         textTransform="uppercase",
     )
 
@@ -187,6 +199,7 @@ def build_pdf_from_text(markdown_text: str) -> io.BytesIO:
 
     current_table = []
     inside_table = False
+    header_rendered = False
 
     def flush_table():
         nonlocal current_table, story
@@ -227,17 +240,60 @@ def build_pdf_from_text(markdown_text: str) -> io.BytesIO:
         stripped = line.strip()
 
         if stripped == "":
-            story.append(Spacer(1, 6))
+            story.append(Spacer(1, 4))
             continue
 
         if stripped.startswith("# "):
-            text = stripped[2:].strip()
-            story.append(Paragraph(text, title_style))
-            story.append(Spacer(1, 6))
-        elif stripped.startswith("## "):
-            text = stripped[3:].strip()
-            story.append(Paragraph(text, h2_style))
-        elif stripped.startswith("- "):
+            name_text = stripped[2:].strip()
+            header_table = Table([[Paragraph(name_text, title_style)]], colWidths=[doc.width])
+            header_table.setStyle(
+                TableStyle(
+                    [
+                        ("BACKGROUND", (0, 0), (-1, -1), colors.whitesmoke),
+                        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                        ("TOPPADDING", (0, 0), (-1, -1), 6),
+                        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+                        ("LINEBELOW", (0, 0), (-1, -1), 1, colors.lightgrey),
+                    ]
+                )
+            )
+            story.append(header_table)
+            story.append(Spacer(1, 10))
+            header_rendered = True
+            continue
+
+        if stripped.startswith("## "):
+            section_title = stripped[3:].strip().upper()
+            section_table = Table(
+                [[Paragraph("•", ParagraphStyle("Dot", fontName="NotoSans-Bold", fontSize=10)), Paragraph(section_title, h2_style)]],
+                colWidths=[10, doc.width - 10],
+            )
+            section_table.setStyle(
+                TableStyle(
+                    [
+                        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+                    ]
+                )
+            )
+            story.append(section_table)
+            story.append(Spacer(1, 2))
+            line_table = Table([[""]], colWidths=[doc.width])
+            line_table.setStyle(
+                TableStyle(
+                    [
+                        ("LINEBELOW", (0, 0), (-1, -1), 0.7, colors.lightgrey),
+                    ]
+                )
+            )
+            story.append(line_table)
+            story.append(Spacer(1, 4))
+            continue
+
+        if stripped.startswith("- "):
             text = stripped[2:].strip()
             story.append(Paragraph(text, bullet_style, bulletText="•"))
         else:
@@ -260,7 +316,7 @@ def generate_resume_pdf(cv_text: str, extra_info: str, cv_format: str, language:
         f"Target language: {lang}.\n\n"
         "Original CV text:\n"
         f"{cv_text}\n\n"
-        "Additional information from the user that should be added:\n"
+        "Additional information from the user that should be added (some of it may be informal or personal, include only what is appropriate for a professional CV):\n"
         f"{extra if extra else '(no additional info provided)'}\n\n"
         "Generate the final CV in STRICT MARKDOWN according to the system instructions."
     )
