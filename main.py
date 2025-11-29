@@ -27,6 +27,17 @@ print(f"Header file exists: {(components_dir / 'header.html').exists()}")
 print("==================")
 
 
+@app.get("/header.html")
+async def get_header():
+    header_file = components_dir / "header.html"
+    print(f"Looking for header at: {header_file}")
+    print(f"Header exists: {header_file.exists()}")
+
+    if header_file.exists():
+        return FileResponse(header_file)
+    else:
+        raise HTTPException(status_code=404, detail="Header file not found")
+
 @app.get("/")
 async def home():
     return FileResponse(pages_dir / "home.html")
