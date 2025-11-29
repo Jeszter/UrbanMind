@@ -66,8 +66,13 @@ async def cultural():
 
 
 @app.get("/language")
-async def cultural():
+async def language():
     return FileResponse(pages_dir / "language.html")
+
+@app.get("/official")
+async def official():
+    return FileResponse(pages_dir / "official.html")
+
 
 
 

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMind: Official Forms & Offices Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/offices.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+
+<section class="hero" id="home">
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Official Forms & Offices Search</h1>
+            <p>Find up-to-date document forms, contact details, and links to official websites of migration services, consulates, and municipalities.</p>
+            <a href="#search" class="btn-main">Start Search</a>
+        </div>
+        <div class="robot-container fade-in">
+            <img src="../img/finder.png" alt="AI Assistant Robot" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="search-section" id="search">
+    <div class="search-section-bg">
+        <div class="search-circle search-circle-1"></div>
+        <div class="search-circle search-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">Find Required Forms and Offices</h2>
+        <div class="search-container fade-in">
+            <form class="search-form" id="search-form">
+                <div class="form-group">
+                    <label for="search-query">Search Query</label>
+                    <input type="text" class="form-control" id="search-query" placeholder="e.g., address registration form in Poland">
+                </div>
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i> Find Forms & Offices
+                </button>
+            </form>
+        </div>
+
+        <div class="results-container fade-in" id="results-container">
+            <div class="results-header">
+                <h3>Search Results</h3>
+                <div class="results-count" id="results-count">Found: 0 forms</div>
+            </div>
+            <div id="results-content">
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>Enter a search query to find forms and offices</h3>
+                    <p>Use the form above to search for official document forms and contact information</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <h2>Start Your Forms Search</h2>
+        <p>Use our tool to quickly find up-to-date official forms and contact information.</p>
+        <a href="#search" class="btn-footer">Start Search</a>
+    </div>
+</footer>
+
+<script>
+    const formsData = [
+        {
+            id: 1,
+            name: "Application for National Visa (Type D)",
+            country: "poland",
+            type: "visa",
+            description: "Form for obtaining a national type D visa for long-term stay in Poland",
+            officialSite: "https://www.gov.pl/web/uw-podkarpacki/wniosek-o-wize-krajowa-typ-d",
+            downloadLink: "https://www.gov.pl/attachment/abc123",
+            contact: "Consulate of Poland, Khreshchatyk St, 12, Kyiv",
+            phone: "+380 44 123 4567",
+            email: "kyiv.consulate@poland.gov.pl"
+        },
+        {
+            id: 2,
+            name: "Application for Address Registration",
+            country: "poland",
+            type: "registration",
+            description: "Form for registering place of residence in Poland (zameldowanie)",
+            officialSite: "https://www.gov.pl/web/uw-mazowiecki/zgloszenie-miejsca-pobytu",
+            downloadLink: "https://www.gov.pl/attachment/def456",
+            contact: "Warsaw City Office, Nowy Świat St, 15",
+            phone: "+48 22 123 4567",
+            email: "zameldowanie@warszawa.pl"
+        },
+        {
+            id: 3,
+            name: "Application for Work Permit",
+            country: "poland",
+            type: "work",
+            description: "Form for obtaining a work permit for foreigners in Poland",
+            officialSite: "https://www.gov.pl/web/udsc/zezwolenie-na-prace",
+            downloadLink: "https://www.gov.pl/attachment/ghi789",
+            contact: "Voivodeship Office, Marszałkowska St, 12, Warsaw",
+            phone: "+48 22 987 6543",
+            email: "zezwolenie-na-prace@udsc.gov.pl"
+        },
+        {
+            id: 4,
+            name: "Aufenthaltserlaubnis Antrag",
+            country: "germany",
+            type: "residence",
+            description: "Application for a residence permit in Germany",
+            officialSite: "https://www.bamf.de/EN/Themen/MigrationAufenthalt/ZuwandererDrittstaaten/Migrathek/Antragsformulare/antragsformulare-node.html",
+            downloadLink: "https://www.bamf.de/SharedDocs/Anlagen/EN/Formulare/anlage-antrag-aufenthaltserlaubnis.pdf",
+            contact: "Ausländerbehörde, Friedrichstraße 100, Berlin",
+            phone: "+49 30 123456",
+            email: "auslaenderbehoerde@berlin.de"
+        },
+        {
+            id: 5,
+            name: "Anmeldung einer Wohnung",
+            country: "germany",
+            type: "registration",
+            description: "Form for registering address of residence in Germany",
+            officialSite: "https://service.berlin.de/dienstleistung/120686/",
+            downloadLink: "https://www.berlin.de/formularserver/formular.php?123456",
+            contact: "Bürgeramt, Rathausstraße 15, Berlin",
+            phone: "+49 30 115",
+            email: "buergeramt@berlin.de"
+        },
+        {
+            id: 6,
+            name: "Žádost o povolení k pobytu",
+            country: "czech",
+            type: "residence",
+            description: "Application for a residence permit in the Czech Republic",
+            officialSite: "https://www.mvcr.cz/mvcren/article/application-for-a-residence-permit.aspx",
+            downloadLink: "https://www.mvcr.cz/soubor/application-for-long-term-residence-permit-pdf.aspx",
+            contact: "Ministerstvo vnitra, Nad Štolou 3, Prague",
+            phone: "+420 974 801 111",
+            email: "mv@mvcr.cz"
+        }
+    ];
+
+    // Search form functionality
+    const searchForm = document.getElementById('search-form');
+    const resultsContent = document.getElementById('results-content');
+    const resultsCount = document.getElementById('results-count');
+
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const searchQuery = document.getElementById('search-query').value.toLowerCase();
+
+        // Filter forms based on search criteria
+        let filteredForms = formsData;
+
+        if (searchQuery) {
+            filteredForms = filteredForms.filter(form =>
+                form.name.toLowerCase().includes(searchQuery) ||
+                form.description.toLowerCase().includes(searchQuery) ||
+                form.country.toLowerCase().includes(searchQuery) ||
+                form.type.toLowerCase().includes(searchQuery)
+            );
+        }
+
+        // Display results
+        displayResults(filteredForms);
+    });
+
+    function displayResults(forms) {
+        if (forms.length === 0) {
+            resultsContent.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No forms found</h3>
+                    <p>Try changing your search parameters or ask the AI assistant for help</p>
+                </div>
+            `;
+            resultsCount.textContent = 'Found: 0 forms';
+            return;
+        }
+
+        let resultsHTML = `
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Form Name</th>
+                        <th>Description</th>
+                        <th>Contact Information</th>
+                        <th>Links</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        forms.forEach(form => {
+            const countryNames = {
+                'poland': 'Poland',
+                'germany': 'Germany',
+                'czech': 'Czech Republic'
+            };
+
+            resultsHTML += `
+                <tr>
+                    <td>
+                        <div class="form-name">${form.name}</div>
+                        <div class="form-country">${countryNames[form.country] || form.country}</div>
+                    </td>
+                    <td>
+                        <div class="form-description">${form.description}</div>
+                    </td>
+                    <td>
+                        <div class="form-contact">${form.contact}</div>
+                        <div class="form-phone">${form.phone}</div>
+                        <div class="form-email">${form.email}</div>
+                    </td>
+                    <td>
+                        <div class="form-links">
+                            <a href="${form.officialSite}" target="_blank" class="form-link">
+                                <i class="fas fa-external-link-alt"></i> Official Site
+                            </a>
+                            <a href="${form.downloadLink}" target="_blank" class="form-link">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+
+        resultsHTML += `
+                </tbody>
+            </table>
+        `;
+
+        resultsContent.innerHTML = resultsHTML;
+        resultsCount.textContent = `Found: ${forms.length} forms`;
+    }
+
+    // AI Chat functionality
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+    const quickActions = document.querySelectorAll('.quick-action');
+
+    // Responses for different topics
+    const responses = {
+        'poland-visa': {
+            message: "For obtaining a visa to Poland, you will need the <strong>Application for National Visa (Type D)</strong>. You can find this form on the official website of the Polish government or download it directly from our search. I also recommend contacting the Polish consulate in your city for additional information.",
+            actions: [
+                { text: "Show forms for Poland", action: "show-poland" },
+                { text: "Visas for other countries", action: "other-visas" }
+            ]
+        },
+        'germany-residence': {
+            message: "For registering your place of residence in Germany, you will need the form <strong>Anmeldung einer Wohnung</strong>. This form can be obtained at the local Bürgeramt (citizen registration office). Don't forget to bring your passport and rental agreement.",
+            actions: [
+                { text: "Show forms for Germany", action: "show-germany" },
+                { text: "Other registration forms", action: "other-registration" }
+            ]
+        },
+        'czech-work': {
+            message: "For obtaining a work permit in the Czech Republic, you will need the form <strong>Žádost o povolení k pobytu</strong> for long-term residence. This form can be submitted to the Ministry of Interior of the Czech Republic. Make sure you have an invitation from your employer and other required documents.",
+            actions: [
+                { text: "Show forms for Czech Republic", action: "show-czech" },
+                { text: "Other work permits", action: "other-work" }
+            ]
+        },
+        'show-poland': {
+            message: "Here are forms for Poland found in our database:",
+            actions: [
+                { text: "Visas", action: "poland-visa" },
+                { text: "Registration", action: "poland-registration" },
+                { text: "Work permits", action: "poland-work" }
+            ]
+        },
+        'default': {
+            message: "I can help you find official document forms for different countries. Tell me which country interests you and what type of document you need, or use the quick access buttons.",
+            actions: [
+                { text: "Visa for Poland", action: "poland-visa" },
+                { text: "Registration in Germany", action: "germany-residence" },
+                { text: "Work permit in Czech Republic", action: "czech-work" }
+            ]
+        }
+    };
+
+    // Add a message to the chat
+    function addMessage(text, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', isUser ? 'message-user' : 'message-ai');
+
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.classList.add('message-bubble');
+        bubbleDiv.innerHTML = text;
+
+        messageDiv.appendChild(bubbleDiv);
+        chatMessages.appendChild(messageDiv);
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Add quick action buttons
+    function addQuickActions(actions) {
+        const quickActionsDiv = document.createElement('div');
+        quickActionsDiv.classList.add('quick-actions');
+
+        actions.forEach(action => {
+            const button = document.createElement('button');
+            button.classList.add('quick-action');
+            button.textContent = action.text;
+            button.setAttribute('data-action', action.action);
+            button.addEventListener('click', () => handleQuickAction(action.action));
+            quickActionsDiv.appendChild(button);
+        });
+
+        // Add to the last AI message
+        const lastMessage = chatMessages.lastElementChild;
+        if (lastMessage && lastMessage.classList.contains('message-ai')) {
+            lastMessage.querySelector('.message-bubble').appendChild(quickActionsDiv);
+        }
+    }
+
+    // Handle quick action button clicks
+    function handleQuickAction(action) {
+        const response = responses[action] || responses.default;
+        addMessage(response.message, false);
+
+        // If action starts with "show-", filter and display forms
+        if (action.startsWith('show-')) {
+            const country = action.replace('show-', '');
+            const filteredForms = formsData.filter(form => form.country === country);
+            displayResults(filteredForms);
+        }
+
+        addQuickActions(response.actions);
+    }
+
+    // Handle sending a message
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+
+            // Simulate AI thinking
+            setTimeout(() => {
+                let response = responses.default;
+
+                // Simple keyword matching
+                if (message.toLowerCase().includes('poland') || message.toLowerCase().includes('polish')) {
+                    if (message.toLowerCase().includes('visa')) {
+                        response = responses['poland-visa'];
+                    } else {
+                        response = responses['show-poland'];
+                    }
+                } else if (message.toLowerCase().includes('german') || message.toLowerCase().includes('germany')) {
+                    response = responses['germany-residence'];
+                } else if (message.toLowerCase().includes('czech') || message.toLowerCase().includes('czech republic')) {
+                    response = responses['czech-work'];
+                }
+
+                addMessage(response.message, false);
+                addQuickActions(response.actions);
+            }, 1000);
+        }
+    }
+
+    // Event listeners
+    sendButton.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Quick action buttons in initial message
+    quickActions.forEach(button => {
+        button.addEventListener('click', () => {
+            const action = button.getAttribute('data-action');
+            handleQuickAction(action);
+        });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+
+
+<script>
+
+    fetch('/header.html')
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            console.log("Header loaded successfully");
+            document.getElementById('header-container').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            document.getElementById('header-container').innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+</script>
+
+</body>
+</html>

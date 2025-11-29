@@ -37,8 +37,8 @@ function highlightCurrentPage() {
         activePage = 'language';
     }
     // Documents pages
-    else if (currentPath === '/visa' || currentPath.includes('visa')) {
-        activePage = 'visa';
+    else if (currentPath === '/official' || currentPath.includes('official')) {
+        activePage = 'official';
     }
     else if (currentPath === '/registration' || currentPath.includes('registration')) {
         activePage = 'registration';
