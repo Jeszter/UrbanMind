@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Any, Dict, List, Optional
 from dotenv import load_dotenv
@@ -35,8 +35,25 @@ def reverse_geocode(lat: float, lon: float) -> Dict[str, str]:
             "city": addr.get("city")
             or addr.get("town")
             or addr.get("village")
+            or addr.get("municipality")
             or addr.get("state")
             or "",
+        }
+    except Exception:
+        return {"country_code": "", "country_name": "Unknown", "city": ""}
+
+
+def geolocate_ip(ip: str) -> Dict[str, str]:
+    try:
+        resp = requests.get(f"https://ipapi.co/{ip}/json/", timeout=8)
+        data = resp.json()
+        code = str(data.get("country_code", "")).lower()
+        country_name = data.get("country_name", "") or "Unknown"
+        city = data.get("city", "") or data.get("region", "") or ""
+        return {
+            "country_code": code,
+            "country_name": country_name,
+            "city": city,
         }
     except Exception:
         return {"country_code": "", "country_name": "Unknown", "city": ""}
@@ -46,31 +63,38 @@ def ask_ai_for_job_sites(location_text: str, ui_language: str) -> List[Dict[str,
     system_prompt = """
 You are an expert career advisor and job-market analyst.
 
-Given the user's location, recommend the most relevant, popular and trustworthy ONLINE JOB SEARCH WEBSITES for that region.
+Given the user's location (which may include city, region and country), recommend the most relevant, popular and trustworthy ONLINE JOB SEARCH WEBSITES for that specific area.
 
 Rules:
-- Suggest 3–7 websites.
-- Prefer local or region-specific sites; include global platforms (like LinkedIn, Indeed) only if they are actually widely used in that region.
-- Include only job boards, career portals, or official employment services. No generic forums, Telegram channels, or unrelated sites.
-- Be up to date and realistic, but do NOT invent obviously fake brands.
-- Output MUST be valid JSON only, with no extra text.
+- Always pay attention to the CITY if it is provided. Prefer city-specific or regional job portals and boards first, then add the most important national platforms.
+- Suggest 3–10 websites.
+- Include only real and plausible job boards, career portals, or official public employment services.
+- Do not include social media profiles, generic discussion forums, Telegram channels, Discord servers, or obviously unrelated websites.
+- If the city is smaller and there are no known local-only job boards, combine:
+  - the nearest big-city or regional portals, and
+  - the main national job portals widely used in that country.
+- Be realistic and up to date, but do not invent obviously fake brands.
 
-Use this JSON schema:
+Output:
+- Output MUST be valid JSON only, with no extra text.
+- Use this JSON schema:
+
 [
   {
     "name": "string",
     "url": "string",
-    "description": "short string (1–2 sentences)",
+    "description": "short string (1–2 sentences, may include which roles or sectors the site is best for)",
     "country_or_region": "string",
-    "primary_language": "string"
+    "primary_language": "string",
+    "focus_area": "string"
   }
 ]
 """
     user_prompt = (
         f"User interface language: {ui_language}.\n"
         f"User location: {location_text}.\n\n"
-        "Return ONLY a JSON array following the schema.\n"
-        "Descriptions can be in English if you are unsure."
+        "Return ONLY a JSON array following the schema. "
+        "Descriptions may be in the UI language or English."
     )
 
     resp = client.chat.completions.create(
@@ -104,6 +128,7 @@ Use this JSON schema:
                         "primary_language": str(
                             item.get("primary_language", "")
                         ).strip(),
+                        "focus_area": str(item.get("focus_area", "")).strip(),
                     }
                 )
             return cleaned
@@ -113,9 +138,8 @@ Use this JSON schema:
 
 
 @router.post("/api/get_job_sites")
-def get_job_sites(req: LocationRequest):
+async def get_job_sites(req: LocationRequest, request: Request):
     ui_lang = req.language or "en"
-    location_text = ""
     country_code = ""
     country_name = ""
     city = ""
@@ -129,9 +153,15 @@ def get_job_sites(req: LocationRequest):
         country_code = req.country_code.lower()
         country_name = req.country_code.upper()
         city = ""
+    else:
+        client_ip = request.client.host
+        geo = geolocate_ip(client_ip)
+        country_code = geo.get("country_code", "")
+        country_name = geo.get("country_name", "Unknown")
+        city = geo.get("city", "")
 
-    if not country_code and not country_name:
-        raise HTTPException(status_code=400, detail="Location not provided")
+    if not country_code and not country_name and not city:
+        raise HTTPException(status_code=400, detail="Location not provided and IP lookup failed")
 
     if city:
         location_text = f"{city}, {country_name} ({country_code.upper()})"
@@ -144,5 +174,6 @@ def get_job_sites(req: LocationRequest):
         "country_code": country_code or "unknown",
         "country_name": country_name or "Unknown",
         "city": city,
+        "location_text_used": location_text,
         "sites": sites,
     }
