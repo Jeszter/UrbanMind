@@ -15,16 +15,36 @@ from back.housing_backend import router as housing_router
 
 app = FastAPI()
 
-# Путь к фронту
-front_dir = Path(__file__).parent / "Front/pages/"
+front_dir = Path(__file__).parent / "Front"
+pages_dir = front_dir / "pages"
+components_dir = front_dir / "components"
 
-# Домашняя страница
+print("=== DEBUG INFO ===")
+print(f"Front dir: {front_dir}")
+print(f"Pages dir: {pages_dir}")
+print(f"Components dir: {components_dir}")
+print(f"Header file exists: {(components_dir / 'header.html').exists()}")
+print("==================")
+
+
 @app.get("/")
 async def home():
-    return FileResponse(front_dir / "/home.html")
+    return FileResponse(pages_dir / "home.html")
 
 
-# Подключение статических файлов (css, js, img)
+@app.get("/neurohr")
+async def neurohr():
+    return FileResponse(pages_dir / "neurohr.html")
+
+
+@app.get("/jobs")
+async def jobs():
+    return FileResponse(pages_dir / "jobs.html")
+
+
+
+
+
 app.mount("/css", StaticFiles(directory=front_dir / "css"), name="css")
 app.mount("/js", StaticFiles(directory=front_dir / "js"), name="js")
 app.mount("/img", StaticFiles(directory=front_dir / "img"), name="img")

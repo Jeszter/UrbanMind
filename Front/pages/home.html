@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-
+<div id="header-container"></div>
 
 
 <section class="hero" id="home">
@@ -140,7 +140,28 @@
 
 <script src="../js/nav.js"></script>
 
-<script src="../js/load-components.js"></script>
+
+
+    <script>
+
+        fetch('/header.html')
+            .then(response => {
+                console.log("Response status:", response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                console.log("Header loaded successfully");
+                document.getElementById('header-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header-container').innerHTML =
+                    `<div style="color: red;">Error loading header: ${error.message}</div>`;
+            });
+    </script>
 
 </body>
 </html>
