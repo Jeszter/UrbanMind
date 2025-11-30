@@ -19,6 +19,7 @@ from back.language_backend import router as language_router
 from back.culture_router import router as culture_router
 from back.chat_backend import router as chat_router
 from back.offices_back import router as offices_router
+from back.housing_backend import router as housing_router
 
 app = FastAPI()
 
@@ -104,7 +105,7 @@ app.add_middleware(
 app.include_router(work_router, prefix="/work")
 app.include_router(docs_router, prefix="/docs")
 app.include_router(language_router, prefix="/language")
-app.include_router(housing_router, prefix="/housing")
+app.include_router(housing_router, prefix="/api")
 app.include_router(neurohr_router, prefix="/neurohr-api")
 app.include_router(job_router)
 app.include_router(translation_router)
@@ -112,6 +113,8 @@ app.include_router(language_router, prefix="/api/language")
 app.include_router(culture_router, prefix="/api/culture")
 app.include_router(chat_router, prefix="/api")
 app.include_router(offices_router, prefix="/api")
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -12,7 +12,6 @@
 
 <div id="header-container"></div>
 
-
 <section class="hero" id="home">
     <div class="hero-bg">
         <div class="blob blob-1"></div>
@@ -66,9 +65,7 @@
 
         <div class="rental-sites-container">
             <h3 class="sections-heading">Recommended Rental Websites</h3>
-            <div class="rental-sites-grid" id="rental-sites-grid">
-                <!-- Rental sites will be populated by JavaScript -->
-            </div>
+            <div class="rental-sites-grid" id="rental-sites-grid"></div>
         </div>
     </div>
 </section>
@@ -162,276 +159,170 @@
 </footer>
 
 <script>
+    const locationStatus = document.querySelector(".location-status");
+    const countrySelect = document.getElementById("country-select");
+    const updateLocationBtn = document.getElementById("update-location");
+    const rentalSitesGrid = document.getElementById("rental-sites-grid");
 
-    // Rental websites database by country
-    const rentalSitesByCountry = {
-        'sk': [
-            {
-                name: 'Reality.sk',
-                description: 'Largest real estate portal in Slovakia with thousands of rental listings.',
-                url: 'https://www.reality.sk',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Nehnuteľnosti.sk',
-                description: 'Popular platform for apartments and houses for rent across Slovakia.',
-                url: 'https://www.nehnutelnosti.sk',
-                icon: 'fas fa-building'
-            },
-            {
-                name: 'Bazos.sk',
-                description: 'Classified ads website with rental listings from private owners.',
-                url: 'https://www.bazos.sk',
-                icon: 'fas fa-list'
-            },
-            {
-                name: 'Facebook Marketplace',
-                description: 'Find rental offers directly from property owners and agencies.',
-                url: 'https://www.facebook.com/marketplace',
-                icon: 'fab fa-facebook'
+    function renderSitesFromList(sites, labelCountry, cityGuess) {
+        rentalSitesGrid.innerHTML = "";
+        if (!sites || sites.length === 0) {
+            rentalSitesGrid.innerHTML =
+                '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">No rental sites available for this location. Please try another country.</p>';
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>No sites found for this location.</span>';
             }
-        ],
-        'cz': [
-            {
-                name: 'Sreality.cz',
-                description: 'Leading Czech real estate portal with extensive rental database.',
-                url: 'https://www.sreality.cz',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Bezrealitky.cz',
-                description: 'Direct rentals from owners without agency commissions.',
-                url: 'https://www.bezrealitky.cz',
-                icon: 'fas fa-user'
-            },
-            {
-                name: 'Reality.idnes.cz',
-                description: 'Real estate section of major Czech news portal.',
-                url: 'https://reality.idnes.cz',
-                icon: 'fas fa-newspaper'
-            }
-        ],
-        'pl': [
-            {
-                name: 'Olx.pl',
-                description: 'Popular classifieds platform with extensive rental listings.',
-                url: 'https://www.olx.pl',
-                icon: 'fas fa-list'
-            },
-            {
-                name: 'Gratka.pl',
-                description: 'One of the largest real estate portals in Poland.',
-                url: 'https://www.gratka.pl',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Otodom.pl',
-                description: 'Professional real estate platform with verified listings.',
-                url: 'https://www.otodom.pl',
-                icon: 'fas fa-building'
-            }
-        ],
-        'hu': [
-            {
-                name: 'Ingatlan.com',
-                description: 'Hungary\'s most visited real estate website.',
-                url: 'https://ingatlan.com',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Jofogas.hu',
-                description: 'Classified ads site with rental properties across Hungary.',
-                url: 'https://www.jofogas.hu',
-                icon: 'fas fa-list'
-            }
-        ],
-        'de': [
-            {
-                name: 'ImmobilienScout24',
-                description: 'Germany\'s largest real estate platform.',
-                url: 'https://www.immobilienscout24.de',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'WG-Gesucht',
-                description: 'Popular platform for shared apartments and rooms.',
-                url: 'https://www.wg-gesucht.de',
-                icon: 'fas fa-users'
-            },
-            {
-                name: 'Immonet.de',
-                description: 'Comprehensive real estate portal with rental listings.',
-                url: 'https://www.immonet.de',
-                icon: 'fas fa-building'
-            }
-        ],
-        'fr': [
-            {
-                name: 'Leboncoin.fr',
-                description: 'France\'s leading classified ads website.',
-                url: 'https://www.leboncoin.fr',
-                icon: 'fas fa-list'
-            },
-            {
-                name: 'Seloger.com',
-                description: 'Major French real estate platform for rentals and sales.',
-                url: 'https://www.seloger.com',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'PAP.fr',
-                description: 'Popular rental platform particularly in Paris.',
-                url: 'https://www.pap.fr',
-                icon: 'fas fa-building'
-            }
-        ],
-        'uk': [
-            {
-                name: 'Rightmove',
-                description: 'UK\'s largest property website with extensive rental listings.',
-                url: 'https://www.rightmove.co.uk',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Zoopla',
-                description: 'Popular UK property portal with rental properties.',
-                url: 'https://www.zoopla.co.uk',
-                icon: 'fas fa-building'
-            },
-            {
-                name: 'Spareroom',
-                description: 'Leading platform for room rentals and shared housing.',
-                url: 'https://www.spareroom.co.uk',
-                icon: 'fas fa-users'
-            }
-        ],
-        'us': [
-            {
-                name: 'Zillow',
-                description: 'Comprehensive US real estate marketplace with rentals.',
-                url: 'https://www.zillow.com',
-                icon: 'fas fa-home'
-            },
-            {
-                name: 'Apartments.com',
-                description: 'Extensive database of apartment rentals across the US.',
-                url: 'https://www.apartments.com',
-                icon: 'fas fa-building'
-            },
-            {
-                name: 'Craigslist',
-                description: 'Local classifieds with rental listings from private owners.',
-                url: 'https://www.craigslist.org',
-                icon: 'fas fa-list'
-            },
-            {
-                name: 'Realtor.com',
-                description: 'Official site of the National Association of Realtors.',
-                url: 'https://www.realtor.com',
-                icon: 'fas fa-user-tie'
-            }
-        ]
-    };
-
-    // Country names for display
-    const countryNames = {
-        'sk': 'Slovakia',
-        'cz': 'Czech Republic',
-        'pl': 'Poland',
-        'hu': 'Hungary',
-        'at': 'Austria',
-        'de': 'Germany',
-        'fr': 'France',
-        'uk': 'United Kingdom',
-        'us': 'United States'
-    };
-
-    // DOM elements
-    const locationStatus = document.querySelector('.location-status');
-    const countrySelect = document.getElementById('country-select');
-    const updateLocationBtn = document.getElementById('update-location');
-    const rentalSitesGrid = document.getElementById('rental-sites-grid');
-
-    // Function to update rental sites based on country
-    function updateRentalSites(countryCode) {
-        // Clear current rental sites
-        rentalSitesGrid.innerHTML = '';
-
-        // Get rental sites for the selected country
-        const rentalSites = rentalSitesByCountry[countryCode] || [];
-
-        if (rentalSites.length === 0) {
-            rentalSitesGrid.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">No rental sites available for this country. Please try another country.</p>';
             return;
         }
 
-        // Update location status
-        locationStatus.className = 'location-status detected';
-        locationStatus.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <span>Showing rental sites for: <span class="detected-location">${countryNames[countryCode]}</span></span>
-            `;
+        const countryLabel = labelCountry || "Selected location";
+        const cityLabel = cityGuess && cityGuess !== "Unknown" ? cityGuess : "";
+        if (locationStatus) {
+            locationStatus.className = "location-status detected";
+            locationStatus.innerHTML =
+                '<i class="fas fa-check-circle"></i>' +
+                '<span>Showing rental sites for: <span class="detected-location">' +
+                countryLabel +
+                (cityLabel ? " (" + cityLabel + ")" : "") +
+                "</span></span>";
+        }
 
-        // Add rental site cards
-        rentalSites.forEach(site => {
-            const rentalSiteCard = document.createElement('div');
-            rentalSiteCard.className = 'rental-site-card fade-in';
-            rentalSiteCard.innerHTML = `
-                    <div class="rental-site-icon">
-                        <i class="${site.icon}"></i>
-                    </div>
-                    <h3>${site.name}</h3>
-                    <p>${site.description}</p>
-                    <a href="${site.url}" target="_blank" class="rental-site-link">Visit Site</a>
-                `;
-            rentalSitesGrid.appendChild(rentalSiteCard);
+        sites.forEach(site => {
+            const card = document.createElement("div");
+            card.className = "rental-site-card fade-in";
+
+            const iconClass = site.icon || "fas fa-home";
+            const name = site.name || "Rental site";
+            const desc = site.description || "";
+            const url = site.url || "#";
+
+            card.innerHTML =
+                '<div class="rental-site-icon">' +
+                '<i class="' + iconClass + '"></i>' +
+                "</div>" +
+                "<h3>" + name + "</h3>" +
+                "<p>" + desc + "</p>" +
+                '<a href="' + url + '" target="_blank" class="rental-site-link">Visit Site</a>';
+
+            rentalSitesGrid.appendChild(card);
         });
     }
 
-    // Function to detect user's location
-    function detectLocation() {
-        // In a real implementation, this would use a geolocation API
-        // For demo purposes, we'll simulate detection with a random country
-        const countries = Object.keys(rentalSitesByCountry);
-        const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+    async function requestHousingFromAI(latitude, longitude, countryHint) {
+        if (locationStatus) {
+            locationStatus.className = "location-status detecting";
+            locationStatus.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i><span>Looking for rental websites near you...</span>';
+        }
+        rentalSitesGrid.innerHTML = "";
 
-        // Simulate API delay
-        setTimeout(() => {
-            updateRentalSites(randomCountry);
-            countrySelect.value = randomCountry;
-        }, 2000);
+        const uiLang = (navigator.language || "en").slice(0, 2);
+
+        const body = {
+            latitude: latitude !== undefined ? latitude : null,
+            longitude: longitude !== undefined ? longitude : null,
+            country_code: countryHint || null,
+            language: uiLang
+        };
+
+        try {
+            const resp = await fetch("/api/get_housing_sites", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            if (!resp.ok) {
+                throw new Error("HTTP " + resp.status);
+            }
+
+            const json = await resp.json();
+
+            const sites = Array.isArray(json.sites) ? json.sites : [];
+            const labelCountry = json.country_name || "Your location";
+            const cityGuess = json.city || "";
+
+            if (sites.length > 0) {
+                renderSitesFromList(sites, labelCountry, cityGuess);
+            } else {
+                rentalSitesGrid.innerHTML =
+                    '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">Could not load rental websites for your location.</p>';
+                if (locationStatus) {
+                    locationStatus.className = "location-status detected";
+                    locationStatus.innerHTML =
+                        '<i class="fas fa-exclamation-circle"></i><span>Could not load sites for your location.</span>';
+                }
+            }
+        } catch (e) {
+            rentalSitesGrid.innerHTML =
+                '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">Error contacting server. Please try again later.</p>';
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>Error contacting server.</span>';
+            }
+        }
     }
 
-    // Event listeners
-    updateLocationBtn.addEventListener('click', () => {
-        const selectedCountry = countrySelect.value;
-        if (selectedCountry) {
-            updateRentalSites(selectedCountry);
-        } else {
-            alert('Please select a country first.');
+    function detectLocation() {
+        if (!navigator.geolocation) {
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>Automatic location detection is not supported. Please select your country manually.</span>';
+            }
+            return;
         }
+
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                requestHousingFromAI(lat, lon, null);
+            },
+            () => {
+                if (locationStatus) {
+                    locationStatus.className = "location-status detected";
+                    locationStatus.innerHTML =
+                        '<i class="fas fa-exclamation-circle"></i><span>Could not detect your location. Please select your country manually.</span>';
+                }
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    }
+
+    updateLocationBtn.addEventListener("click", () => {
+        const selectedCountry = countrySelect.value;
+        if (!selectedCountry) {
+            alert("Please select a country first.");
+            return;
+        }
+        requestHousingFromAI(null, null, selectedCountry);
     });
 
-    // Initialize with all properties and detect location
     detectLocation();
 
-    // Mobile menu functionality
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
+    const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+    const navMenu = document.querySelector(".nav-menu");
 
-    mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
-            ? '<i class="fas fa-times"></i>'
-            : '<i class="fas fa-bars"></i>';
-    });
-
-
-
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+            mobileMenuBtn.innerHTML = navMenu.classList.contains("active")
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+    }
 </script>
 
 <script>
-    fetch('/header.html')
+    fetch("/header.html")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -439,10 +330,10 @@
             return response.text();
         })
         .then(html => {
-            document.getElementById('header-container').innerHTML = html;
+            document.getElementById("header-container").innerHTML = html;
         })
         .catch(error => {
-            document.getElementById('header-container').innerHTML =
+            document.getElementById("header-container").innerHTML =
                 `<div style="color: red;">Error loading header: ${error.message}</div>`;
         });
 </script>
