@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,103 +7,703 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Language Selector Styles */
+        .language-selector {
+            margin-left: auto;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .language-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--border-radius-nav);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--color-light-text);
+            background: none;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .language-trigger:hover {
+            background-color: var(--color-nav-hover);
+            color: var(--color-primary-blue);
+        }
+
+        .current-flag {
+            font-size: 1.2em;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--color-card-bg);
+            min-width: 200px;
+            border-radius: var(--border-radius-nav);
+            box-shadow: var(--shadow-subtle);
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .language-selector:hover .language-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            color: var(--color-light-text);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 0.9em;
+            text-align: left;
+        }
+
+        .language-option:hover {
+            background-color: var(--color-nav-hover);
+            color: var(--color-primary-blue);
+        }
+
+        .language-option.active {
+            color: var(--color-primary-blue);
+            background-color: var(--color-nav-hover);
+        }
+
+        .language-flag {
+            font-size: 1.1em;
+            width: 20px;
+            text-align: center;
+        }
+
+        .language-name {
+            flex: 1;
+        }
+
+        /* Loading state */
+        .language-loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--color-primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Nav container adjustments */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-container nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        @media (max-width: 850px) {
+            .language-selector {
+                display: none;
+            }
+
+            .nav-container nav {
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="/" class="logo">
-                <i class="fa-solid fa-dove"></i>
-                UrbanMind
-            </a>
-            <nav>
-                <ul class="nav-menu">
-                    <li>
-                        <a href="/" class="nav-link" data-page="home">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#work" class="nav-link" data-page="work">
-                            Work & Education <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Work Opportunities</li>
-                            <li>
-                                <a href="/neurohr" class="nav-link" data-page="neurohr">
-                                    <i class="fas fa-robot"></i> NeuroHR
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/jobs" class="nav-link" data-page="jobs">
-                                    <i class="fas fa-briefcase"></i> Local Job Search
-                                </a>
-                            </li>
+<header class="header">
+    <div class="container nav-container">
+        <a href="/" class="logo">
+            <i class="fa-solid fa-dove"></i>
+            UrbanMind
+        </a>
 
-                            <li class="dropdown-header">Education</li>
-                            <li>
-                                <a href="/language" class="nav-link" data-page="language">
-                                    <i class="fas fa-language"></i> Language Learning
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#docs" class="nav-link" data-page="docs">
-                            Documents <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/official" class="nav-link" data-page="official">
-                                    <i class="fas fa-passport"></i>Offices Search
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/registration" class="nav-link" data-page="registration">
-                                    <i class="fas fa-address-card"></i> Registration
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/banking" class="nav-link" data-page="banking">
-                                    <i class="fas fa-credit-card"></i> Banking & Finance
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/legal" class="nav-link" data-page="legal">
-                                    <i class="fas fa-balance-scale"></i> Filling Assistant
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#lang" class="nav-link" data-page="lang">
-                            Language & Social <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/translation" class="nav-link" data-page="translation">
-                                    <i class="fas fa-comments"></i> Translation Help
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/cultural" class="nav-link" data-page="cultural">
-                                    <i class="fas fa-globe-americas"></i> Cultural Guide
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/housing" class="nav-link" data-page="housing">
-                            Housing & Living
-                        </a>
-                    </li>
-                </ul>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
+        <nav>
+            <ul class="nav-menu">
+                <li>
+                    <a href="/" class="nav-link" data-page="home">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#work" class="nav-link" data-page="work">
+                        Work & Education <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Work Opportunities</li>
+                        <li>
+                            <a href="/neurohr" class="nav-link" data-page="neurohr">
+                                <i class="fas fa-robot"></i> NeuroHR
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/jobs" class="nav-link" data-page="jobs">
+                                <i class="fas fa-briefcase"></i> Local Job Search
+                            </a>
+                        </li>
+
+                        <li class="dropdown-header">Education</li>
+                        <li>
+                            <a href="/language" class="nav-link" data-page="language">
+                                <i class="fas fa-language"></i> Language Learning
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#docs" class="nav-link" data-page="docs">
+                        Documents <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/official" class="nav-link" data-page="official">
+                                <i class="fas fa-passport"></i>Offices Search
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/registration" class="nav-link" data-page="registration">
+                                <i class="fas fa-address-card"></i> Registration
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/banking" class="nav-link" data-page="banking">
+                                <i class="fas fa-credit-card"></i> Banking & Finance
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/legal" class="nav-link" data-page="legal">
+                                <i class="fas fa-balance-scale"></i> Filling Assistant
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#lang" class="nav-link" data-page="lang">
+                        Language & Social <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/translation" class="nav-link" data-page="translation">
+                                <i class="fas fa-comments"></i> Translation Help
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cultural" class="nav-link" data-page="cultural">
+                                <i class="fas fa-globe-americas"></i> Cultural Guide
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/housing" class="nav-link" data-page="housing">
+                        Housing & Living
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Language Selector отдельно справа -->
+            <div class="language-selector">
+                <button class="language-trigger" id="languageTrigger">
+                    <span class="current-flag">🇬🇧</span>
+                    <i class="fas fa-chevron-down"></i>
                 </button>
-            </nav>
-        </div>
-    </header>
+                <div class="language-dropdown">
+                    <button class="language-option active" data-lang="en">
+                        <span class="language-flag">🇬🇧</span>
+                        <span class="language-name">English</span>
+                    </button>
+                    <button class="language-option" data-lang="uk">
+                        <span class="language-flag">🇺🇦</span>
+                        <span class="language-name">Ukrainian</span>
+                    </button>
+                    <button class="language-option" data-lang="sk">
+                        <span class="language-flag">🇸🇰</span>
+                        <span class="language-name">Slovak</span>
+                    </button>
+                    <button class="language-option" data-lang="pl">
+                        <span class="language-flag">🇵🇱</span>
+                        <span class="language-name">Polish</span>
+                    </button>
+                    <button class="language-option" data-lang="de">
+                        <span class="language-flag">🇩🇪</span>
+                        <span class="language-name">German</span>
+                    </button>
+                    <button class="language-option" data-lang="fr">
+                        <span class="language-flag">🇫🇷</span>
+                        <span class="language-name">French</span>
+                    </button>
+                    <button class="language-option" data-lang="es">
+                        <span class="language-flag">🇪🇸</span>
+                        <span class="language-name">Spanish</span>
+                    </button>
+                    <button class="language-option" data-lang="it">
+                        <span class="language-flag">🇮🇹</span>
+                        <span class="language-name">Italian</span>
+                    </button>
+                    <button class="language-option" data-lang="ru">
+                        <span class="language-flag">🇷🇺</span>
+                        <span class="language-name">Russian</span>
+                    </button>
+                    <button class="language-option" data-lang="cz">
+                        <span class="language-flag">🇨🇿</span>
+                        <span class="language-name">Czech</span>
+                    </button>
+                    <button class="language-option" data-lang="hu">
+                        <span class="language-flag">🇭🇺</span>
+                        <span class="language-name">Hungarian</span>
+                    </button>
+                </div>
+            </div>
 
-    <script src="../js/header.js"></script>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<script src="../js/header.js"></script>
+<script>
+    // Front/js/translation.js
+
+    class PageTranslationSystem {
+        constructor() {
+            this.currentLanguage = 'en';
+            this.isTranslating = false;
+            this.API_BASE = '/api';
+            this.translationCache = new Map();
+            this.supportedLanguages = null;
+        }
+
+        // Initialize translation system
+        async init() {
+            await this.loadSupportedLanguages();
+
+            // Load saved language preference
+            const savedLang = this.loadLanguagePreference();
+            if (savedLang && savedLang !== 'en') {
+                await this.applyTranslation(savedLang);
+            }
+
+            this.setupEventListeners();
+        }
+
+        // Load supported languages from backend
+        async loadSupportedLanguages() {
+            try {
+                const response = await fetch(`${this.API_BASE}/supported-languages`);
+                const data = await response.json();
+                if (data.status === 'success') {
+                    this.supportedLanguages = data.languages;
+                    this.updateLanguageSelector();
+                }
+            } catch (error) {
+                console.error('Failed to load supported languages:', error);
+            }
+        }
+
+        // Update language selector with loaded languages
+        updateLanguageSelector() {
+            if (!this.supportedLanguages) return;
+
+            const dropdown = document.querySelector('.language-dropdown');
+            if (!dropdown) return;
+
+            dropdown.innerHTML = '';
+
+            Object.entries(this.supportedLanguages).forEach(([code, lang]) => {
+                const button = document.createElement('button');
+                button.className = `language-option ${code === this.currentLanguage ? 'active' : ''}`;
+                button.setAttribute('data-lang', code);
+                button.innerHTML = `
+                <span class="language-flag">${lang.flag}</span>
+                <span class="language-name">${lang.name}</span>
+                <span class="language-native">${lang.native}</span>
+            `;
+                dropdown.appendChild(button);
+            });
+
+            this.setupLanguageOptionListeners();
+        }
+
+        // Setup listeners for language options
+        setupLanguageOptionListeners() {
+            const languageOptions = document.querySelectorAll('.language-option');
+            languageOptions.forEach(option => {
+                option.addEventListener('click', async () => {
+                    const lang = option.getAttribute('data-lang');
+                    if (lang !== this.currentLanguage && !this.isTranslating) {
+                        await this.applyTranslation(lang);
+
+                        // Update active state
+                        languageOptions.forEach(opt => opt.classList.remove('active'));
+                        option.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Apply translation to entire page
+        async applyTranslation(targetLanguage) {
+            if (this.isTranslating || this.currentLanguage === targetLanguage) return;
+
+            this.isTranslating = true;
+            this.showLoadingState(true);
+
+            try {
+                // Method 1: Bulk translate all texts (more efficient)
+                await this.translatePageBulk(targetLanguage);
+
+                this.currentLanguage = targetLanguage;
+                this.saveLanguagePreference(targetLanguage);
+                this.updateTriggerDisplay();
+                this.showNotification(`Language set to ${this.getLanguageName(targetLanguage)}`);
+
+            } catch (error) {
+                console.error('Translation failed:', error);
+                this.showNotification('Translation failed. Please try again.', true);
+            } finally {
+                this.isTranslating = false;
+                this.showLoadingState(false);
+            }
+        }
+
+        // Method 1: Bulk translate all texts on page
+        async translatePageBulk(targetLanguage) {
+            const translatableElements = this.getTranslatableElements();
+            const textsToTranslate = translatableElements.map(item => item.originalText);
+
+            if (textsToTranslate.length === 0) return;
+
+            const response = await fetch(`${this.API_BASE}/translate-bulk`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    texts: textsToTranslate,
+                    target_language: targetLanguage,
+                    source_language: 'auto'
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Bulk translation failed');
+            }
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                // Apply translations to elements
+                data.translated_texts.forEach((translatedText, index) => {
+                    if (translatableElements[index]) {
+                        translatableElements[index].element.textContent = translatedText;
+                    }
+                });
+            } else {
+                throw new Error(data.message || 'Translation failed');
+            }
+        }
+
+        // Method 2: Translate entire HTML content (alternative method)
+        async translatePageHTML(targetLanguage) {
+            const htmlContent = document.documentElement.outerHTML;
+
+            const response = await fetch(`${this.API_BASE}/translate-page`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    html_content: htmlContent,
+                    target_language: targetLanguage,
+                    source_language: 'auto'
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Page translation failed');
+            }
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                // Replace page content with translated HTML
+                document.open();
+                document.write(data.translated_html);
+                document.close();
+
+                // Reinitialize the translation system
+                this.setupEventListeners();
+            } else {
+                throw new Error(data.message || 'Page translation failed');
+            }
+        }
+
+        // Get all elements with data-translate attribute
+        getTranslatableElements() {
+            const elements = document.querySelectorAll('[data-translate]');
+            const translatableElements = [];
+
+            elements.forEach(element => {
+                const originalText = element.textContent.trim();
+                if (originalText && !this.shouldSkipTranslation(element)) {
+                    translatableElements.push({
+                        element: element,
+                        originalText: originalText,
+                        key: element.getAttribute('data-translate')
+                    });
+                }
+            });
+
+            return translatableElements;
+        }
+
+        // Check if element should be skipped for translation
+        shouldSkipTranslation(element) {
+            // Skip elements that contain code, URLs, or specific classes
+            const skipClasses = ['no-translate', 'code', 'url', 'technical'];
+            const skipTags = ['script', 'style', 'code', 'pre'];
+
+            if (skipTags.includes(element.tagName.toLowerCase())) {
+                return true;
+            }
+
+            if (skipClasses.some(cls => element.classList.contains(cls))) {
+                return true;
+            }
+
+            // Skip elements that contain mostly numbers or special characters
+            const text = element.textContent.trim();
+            const textWithoutSpecial = text.replace(/[^a-zA-Zа-яА-Я]/g, '');
+            return textWithoutSpecial.length < 2;
+        }
+
+        // Show/hide loading state
+        showLoadingState(show) {
+            const trigger = document.getElementById('languageTrigger');
+            const dropdown = document.querySelector('.language-dropdown');
+
+            if (show) {
+                trigger.classList.add('language-loading');
+                trigger.innerHTML = '<span class="loading-spinner"></span> Translating...';
+                dropdown.style.opacity = '0';
+                dropdown.style.visibility = 'hidden';
+            } else {
+                trigger.classList.remove('language-loading');
+                this.updateTriggerDisplay();
+            }
+        }
+
+        // Update language trigger display
+        updateTriggerDisplay() {
+            const trigger = document.getElementById('languageTrigger');
+            if (!trigger) return;
+
+            const flag = this.getFlagForLanguage(this.currentLanguage);
+            const name = this.getLanguageName(this.currentLanguage);
+
+            trigger.innerHTML = `
+            <span class="current-flag">${flag}</span>
+            <span>${name}</span>
+            <i class="fas fa-chevron-down"></i>
+        `;
+        }
+
+        // Get flag for language
+        getFlagForLanguage(lang) {
+            if (this.supportedLanguages && this.supportedLanguages[lang]) {
+                return this.supportedLanguages[lang].flag;
+            }
+
+            const flags = {
+                'en': '🇬🇧', 'uk': '🇺🇦', 'sk': '🇸🇰', 'pl': '🇵🇱',
+                'de': '🇩🇪', 'fr': '🇫🇷', 'es': '🇪🇸', 'it': '🇮🇹',
+                'ru': '🇷🇺', 'cz': '🇨🇿', 'hu': '🇭🇺'
+            };
+            return flags[lang] || '🌐';
+        }
+
+        // Get language name
+        getLanguageName(lang) {
+            if (this.supportedLanguages && this.supportedLanguages[lang]) {
+                return this.supportedLanguages[lang].name;
+            }
+
+            const names = {
+                'en': 'English', 'uk': 'Ukrainian', 'sk': 'Slovak', 'pl': 'Polish',
+                'de': 'German', 'fr': 'French', 'es': 'Spanish', 'it': 'Italian',
+                'ru': 'Russian', 'cz': 'Czech', 'hu': 'Hungarian'
+            };
+            return names[lang] || lang;
+        }
+
+        // Save language preference
+        saveLanguagePreference(lang) {
+            // Save to localStorage
+            localStorage.setItem('preferred-language', lang);
+
+            // Save to cookie (expires in 1 year)
+            const date = new Date();
+            date.setFullYear(date.getFullYear() + 1);
+            document.cookie = `preferred-language=${lang}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
+        }
+
+        // Load language preference
+        loadLanguagePreference() {
+            // Try localStorage first
+            let lang = localStorage.getItem('preferred-language');
+
+            // If not in localStorage, try cookies
+            if (!lang) {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    const [name, value] = cookie.trim().split('=');
+                    if (name === 'preferred-language') {
+                        lang = value;
+                        break;
+                    }
+                }
+            }
+
+            return lang || 'en';
+        }
+
+        // Show notification
+        showNotification(message, isError = false) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.translation-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            const notification = document.createElement('div');
+            notification.className = 'translation-notification';
+            notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: ${isError ? '#ff6b6b' : 'var(--color-primary-blue)'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 300px;
+        `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Setup event listeners
+        setupEventListeners() {
+            // Mobile menu
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (event) => {
+                const languageSelector = document.querySelector('.language-selector');
+                if (languageSelector && !languageSelector.contains(event.target)) {
+                    const dropdown = document.querySelector('.language-dropdown');
+                    if (dropdown) {
+                        dropdown.style.opacity = '0';
+                        dropdown.style.visibility = 'hidden';
+                    }
+                }
+            });
+        }
+    }
+
+    // Initialize translation system when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        window.pageTranslationSystem = new PageTranslationSystem();
+        window.pageTranslationSystem.init();
+    });
+</script>
+
+<style>
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    }
+
+    [data-translate] {
+        transition: opacity 0.3s ease;
+    }
+
+    .translating [data-translate] {
+        opacity: 0.7;
+    }
+</style>
 </body>
 </html>

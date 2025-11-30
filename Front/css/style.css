@@ -1,25 +1,25 @@
 :root {
---color-background-light: #f7f9fb;
---color-primary-blue: #5a73e3;
---color-secondary-blue: #9eb8f7;
---color-dark-text: #323d5a;
---color-light-text: #6e798f;
---color-card-bg: #ffffff;
---color-white: #ffffff;
---color-accent: #ff6b6b;
---color-nav-hover: #f0f4ff;
---color-robot-bg: #5a73e3;
---color-success: #4CAF50;
---color-warning: #FF9800;
---color-chat-ai: #e6eeff;
---color-chat-user: #f0f4ff;
+    --color-background-light: #f7f9fb;
+    --color-primary-blue: #5a73e3;
+    --color-secondary-blue: #9eb8f7;
+    --color-dark-text: #323d5a;
+    --color-light-text: #6e798f;
+    --color-card-bg: #ffffff;
+    --color-white: #ffffff;
+    --color-accent: #ff6b6b;
+    --color-nav-hover: #f0f4ff;
+    --color-robot-bg: #5a73e3;
+    --color-success: #4CAF50;
+    --color-warning: #FF9800;
+    --color-chat-ai: #e6eeff;
+    --color-chat-user: #f0f4ff;
 
---border-radius-soft: 18px;
---border-radius-nav: 12px;
---shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.08);
---shadow-card-icon: 0 4px 10px rgba(78, 213, 220, 0.25);
---shadow-nav: 0 4px 12px rgba(90, 115, 227, 0.15);
---font-main: 'Poppins', sans-serif;
+    --border-radius-soft: 18px;
+    --border-radius-nav: 12px;
+    --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-card-icon: 0 4px 10px rgba(78, 213, 220, 0.25);
+    --shadow-nav: 0 4px 12px rgba(90, 115, 227, 0.15);
+    --font-main: 'Poppins', sans-serif;
 }
 
 * {
@@ -56,7 +56,6 @@ h1, h2, h3 {
     margin: 0 auto;
     padding: 0 25px;
 }
-
 /* HEADER & NAVIGATION */
 .header {
     background: var(--color-card-bg);
@@ -71,6 +70,9 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1300px; /* Значительно увеличиваем ширину */
+    margin: 0 auto;
+    padding: 0 30px;
 }
 
 .logo {
@@ -79,6 +81,7 @@ h1, h2, h3 {
     color: var(--color-primary-blue);
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .logo i {
@@ -88,23 +91,25 @@ h1, h2, h3 {
 .nav-menu {
     list-style: none;
     display: flex;
-    font-size: 0.95em;
+    font-size: 0.95em; /* Сохраняем оригинальный размер шрифта */
     position: relative;
+    flex-wrap: nowrap;
+    gap: 2px; /* Минимальный отступ между пунктами */
 }
 
 .nav-menu li {
-    margin-left: 8px;
     position: relative;
 }
 
 .nav-menu > li > a {
     font-weight: 500;
     color: var(--color-light-text);
-    padding: 10px 16px;
+    padding: 10px 14px; /* Немного уменьшаем горизонтальный паддинг */
     border-radius: var(--border-radius-nav);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 
 .nav-menu > li > a i {
@@ -198,6 +203,8 @@ h1, h2, h3 {
     color: var(--color-primary-blue);
     cursor: pointer;
     z-index: 101;
+    margin-left: 15px;
+    flex-shrink: 0;
 }
 
 /* HERO SECTION - ПОЛНЫЙ ЭКРАН */
