@@ -88,6 +88,16 @@ async def housing():
 
 
 
+@app.get("/registration")
+async def registration():
+    return FileResponse(pages_dir / "registration.html")
+
+
+@app.get("/banking")
+async def banking():
+    return FileResponse(pages_dir / "banking.html")
+
+
 
 
 app.mount("/css", StaticFiles(directory=front_dir / "css"), name="css")
