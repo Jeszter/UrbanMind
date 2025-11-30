@@ -14,10 +14,8 @@ router = APIRouter()
 # Set OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-
 class RequestValue(BaseModel):
     message: str
-
 
 def read_pdf(file_path):
     """Read and extract text from a PDF file."""
@@ -31,11 +29,10 @@ def read_pdf(file_path):
         return f"Error reading PDF: {str(e)}"
     return text
 
-
 async def chat_with_gpt(user_message: str, system_prompt: str):
     """
     Send a message to GPT-4 and get a response.
-
+    
     :param user_message: The user's message
     :param system_prompt: System instructions for the AI
     :return: AI response text
@@ -53,7 +50,6 @@ async def chat_with_gpt(user_message: str, system_prompt: str):
         return response.choices[0].message.content
     except Exception as e:
         raise Exception(f"OpenAI API error: {str(e)}")
-
 
 @router.post("/chat")
 async def docs_chat(request_data: RequestValue):
@@ -86,7 +82,6 @@ Provide helpful and accurate information based on the request.
             {"status": "error", "message": f"Documents chat error: {str(e)}"},
             status_code=500
         )
-
 
 @router.post("/chat-with-pdf")
 async def docs_chat_with_pdf(request_data: dict):

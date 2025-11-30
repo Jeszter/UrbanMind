@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMind: Registration Assistance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/registration.css">
+    <style>
+        .country-guides {
+            position: relative;
+        }
+        .country-guides-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .country-guides .container {
+            position: relative;
+            z-index: 1;
+        }
+        .country-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        #country-select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Registration Assistance for Migrants</h1>
+            <p>Navigate the process of registering with local authorities, police stations, and government offices. Get step-by-step guidance and practical tips for a smooth registration experience.</p>
+            <a href="#process" class="btn-main">Learn Registration Process</a>
+        </div>
+        <div class="robot-container fade-in">
+            <img src="../img/registration.png" alt="AI Assistant Robot" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="country-guides">
+    <div class="country-guides-bg"></div>
+    <div class="container">
+        <div class="country-selector">
+            <label for="country-select">Choose your European country</label>
+            <select id="country-select">
+                <option value="">Select country</option>
+                <option value="al">Albania</option>
+                <option value="ad">Andorra</option>
+                <option value="am">Armenia</option>
+                <option value="at">Austria</option>
+                <option value="az">Azerbaijan</option>
+                <option value="by">Belarus</option>
+                <option value="be">Belgium</option>
+                <option value="ba">Bosnia and Herzegovina</option>
+                <option value="bg">Bulgaria</option>
+                <option value="hr">Croatia</option>
+                <option value="cy">Cyprus</option>
+                <option value="cz">Czech Republic</option>
+                <option value="dk">Denmark</option>
+                <option value="ee">Estonia</option>
+                <option value="fi">Finland</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+                <option value="gr">Greece</option>
+                <option value="hu">Hungary</option>
+                <option value="is">Iceland</option>
+                <option value="ie">Ireland</option>
+                <option value="it">Italy</option>
+                <option value="kz">Kazakhstan</option>
+                <option value="xk">Kosovo</option>
+                <option value="lv">Latvia</option>
+                <option value="li">Liechtenstein</option>
+                <option value="lt">Lithuania</option>
+                <option value="lu">Luxembourg</option>
+                <option value="mt">Malta</option>
+                <option value="md">Moldova</option>
+                <option value="mc">Monaco</option>
+                <option value="me">Montenegro</option>
+                <option value="nl">Netherlands</option>
+                <option value="mk">North Macedonia</option>
+                <option value="no">Norway</option>
+                <option value="pl">Poland</option>
+                <option value="pt">Portugal</option>
+                <option value="ro">Romania</option>
+                <option value="ru">Russia</option>
+                <option value="sm">San Marino</option>
+                <option value="rs">Serbia</option>
+                <option value="sk">Slovakia</option>
+                <option value="si">Slovenia</option>
+                <option value="es">Spain</option>
+                <option value="se">Sweden</option>
+                <option value="ch">Switzerland</option>
+                <option value="tr">Turkey</option>
+                <option value="ua">Ukraine</option>
+                <option value="gb">United Kingdom</option>
+                <option value="va">Vatican City</option>
+            </select>
+        </div>
+
+        <h2 class="sections-heading">Country-Specific Registration Guides</h2>
+        <div class="country-cards">
+            <div class="country-card fade-in" id="country-card">
+                <div class="country-flag" id="country-flag">🇪🇺</div>
+                <h3 id="country-title">Registration Overview</h3>
+                <p id="country-description">
+                    Select a country above to see registration requirements, deadlines, costs and official government websites.
+                </p>
+                <div class="country-details">
+                    <div class="country-detail">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Deadline:</strong>
+                            <span id="country-deadline">–</span>
+                        </div>
+                    </div>
+                    <div class="country-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <div>
+                            <strong>Cost:</strong>
+                            <span id="country-cost">–</span>
+                        </div>
+                    </div>
+                    <div class="country-detail">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <strong>Documents:</strong>
+                            <span id="country-documents">–</span>
+                        </div>
+                    </div>
+                    <div class="country-detail" id="country-sites-wrapper">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>Official websites:</strong>
+                            <span id="country-sites">–</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="registration-process" id="process">
+    <div class="registration-bg">
+        <div class="registration-circle registration-circle-1"></div>
+        <div class="registration-circle registration-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">Step-by-Step Registration Process</h2>
+        <div class="process-steps">
+            <div class="process-step fade-in">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Determine Your Registration Requirements</h3>
+                    <p>First, identify what type of registration you need based on your visa status, length of stay, and purpose of visit. Different countries have different requirements for migrants.</p>
+                    <div class="step-documents">
+                        <h4>What you need to check:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Visa type and expiration date</li>
+                            <li><i class="fas fa-check-circle"></i> Length of intended stay</li>
+                            <li><i class="fas fa-check-circle"></i> Purpose of your visit (work, study, family reunion)</li>
+                            <li><i class="fas fa-check-circle"></i> Local municipality requirements</li>
+                        </ul>
+                    </div>
+                    <div class="step-tip">
+                        <h4>Pro Tip:</h4>
+                        <p>Check the official government website of your host country for the most up-to-date registration requirements. Requirements can change frequently.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step fade-in">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Gather Required Documents</h3>
+                    <p>Prepare all necessary documents before your appointment. Missing documents are the most common reason for registration delays or rejections.</p>
+                    <div class="step-documents">
+                        <h4>Commonly required documents:</h4>
+                        <ul>
+                            <li><i class="fas fa-passport"></i> Valid passport with visa</li>
+                            <li><i class="fas fa-id-card"></i> Passport-sized photographs</li>
+                            <li><i class="fas fa-home"></i> Proof of address (rental contract, utility bill)</li>
+                            <li><i class="fas fa-heartbeat"></i> Health insurance documentation</li>
+                            <li><i class="fas fa-money-bill-wave"></i> Proof of financial means</li>
+                            <li><i class="fas fa-briefcase"></i> Employment contract or student enrollment</li>
+                        </ul>
+                    </div>
+                    <div class="step-tip">
+                        <h4>Pro Tip:</h4>
+                        <p>Make photocopies of all your documents before going to your appointment. Some offices may require both originals and copies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step fade-in">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Schedule Your Appointment</h3>
+                    <p>Most registration offices require appointments. Book your slot online or by phone as early as possible, as waiting times can be long.</p>
+                    <div class="step-documents">
+                        <h4>Booking options:</h4>
+                        <ul>
+                            <li><i class="fas fa-globe"></i> Online booking systems</li>
+                            <li><i class="fas fa-phone"></i> Telephone appointments</li>
+                            <li><i class="fas fa-building"></i> In-person scheduling (less common)</li>
+                        </ul>
+                    </div>
+                    <div class="step-tip">
+                        <h4>Pro Tip:</h4>
+                        <p>Check for cancellation slots regularly. People often cancel appointments, opening up earlier time slots.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step fade-in">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Attend Your Registration Appointment</h3>
+                    <p>Arrive prepared for your appointment with all documents. Be ready to answer questions about your stay and provide biometric data if required.</p>
+                    <div class="step-documents">
+                        <h4>What to expect:</h4>
+                        <ul>
+                            <li><i class="fas fa-fingerprint"></i> Biometric data collection (fingerprints, photo)</li>
+                            <li><i class="fas fa-question-circle"></i> Interview about your stay purpose</li>
+                            <li><i class="fas fa-receipt"></i> Payment of registration fees</li>
+                            <li><i class="fas fa-file-signature"></i> Signing of registration documents</li>
+                        </ul>
+                    </div>
+                    <div class="step-tip">
+                        <h4>Pro Tip:</h4>
+                        <p>Arrive 15 minutes early to account for security checks and finding the correct office. Dress neatly as first impressions matter.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step fade-in">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Receive Your Registration Certificate</h3>
+                    <p>After successful registration, you will receive a certificate or card confirming your legal status. Keep this document safe as you'll need it for various administrative procedures.</p>
+                    <div class="step-documents">
+                        <h4>After registration:</h4>
+                        <ul>
+                            <li><i class="fas fa-id-card"></i> Keep your registration certificate safe</li>
+                            <li><i class="fas fa-calendar-alt"></i> Note the expiration date</li>
+                            <li><i class="fas fa-sync-alt"></i> Start planning for renewal 2-3 months before expiration</li>
+                            <li><i class="fas fa-share-alt"></i> Inform relevant institutions of your new status</li>
+                        </ul>
+                    </div>
+                    <div class="step-tip">
+                        <h4>Pro Tip:</h4>
+                        <p>Make digital copies of your registration certificate and store them securely in cloud storage. This can be helpful if the original is lost or stolen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    fetch('/header.html')
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error('HTTP error ' + response.status)
+            }
+            return response.text()
+        })
+        .then(function (html) {
+            document.getElementById('header-container').innerHTML = html
+        })
+        .catch(function (error) {
+            document.getElementById('header-container').innerHTML =
+                '<div style="color: red;">Error loading header: ' + error.message + '</div>'
+        })
+
+    var chatMessages = document.getElementById('chat-messages')
+    var chatInput = document.getElementById('chat-input')
+    var sendButton = document.getElementById('send-button')
+
+    function addMessage(text, isUser) {
+        if (!chatMessages) return
+        var messageDiv = document.createElement('div')
+        messageDiv.classList.add('message', isUser ? 'message-user' : 'message-ai')
+        var bubbleDiv = document.createElement('div')
+        bubbleDiv.classList.add('message-bubble')
+        bubbleDiv.innerHTML = text
+        messageDiv.appendChild(bubbleDiv)
+        chatMessages.appendChild(messageDiv)
+        chatMessages.scrollTop = chatMessages.scrollHeight
+    }
+
+    function addQuickActions(actions) {
+        if (!chatMessages) return
+        if (!actions || !actions.length) return
+        var quickActionsDiv = document.createElement('div')
+        quickActionsDiv.classList.add('quick-actions')
+        actions.forEach(function (action) {
+            var button = document.createElement('button')
+            button.classList.add('quick-action')
+            button.textContent = action.text
+            button.setAttribute('data-action', action.action)
+            button.addEventListener('click', function () {
+                handleQuickAction(action.action)
+            })
+            quickActionsDiv.appendChild(button)
+        })
+        var lastMessage = chatMessages.lastElementChild
+        if (lastMessage && lastMessage.classList.contains('message-ai')) {
+            lastMessage.querySelector('.message-bubble').appendChild(quickActionsDiv)
+        }
+    }
+
+    function detectCountryFromAction(action) {
+        if (!action) return null
+        if (action.indexOf('country:') === 0) {
+            return action.split(':')[1]
+        }
+        return null
+    }
+
+    function handleQuickAction(action) {
+        var country = detectCountryFromAction(action)
+        if (country) {
+            sendToBackend('Tell me about registration process in ' + country, country)
+            return
+        }
+        if (action === 'documents') {
+            sendToBackend('List all required documents for registration.', null)
+        } else if (action === 'deadlines') {
+            sendToBackend('Explain typical registration deadlines.', null)
+        } else if (action === 'websites') {
+            sendToBackend('Give official government websites for registration.', null)
+        } else {
+            sendToBackend('Help me with registration process.', null)
+        }
+    }
+
+    function sendToBackend(message, country) {
+        if (!chatMessages) return
+        addMessage(message, true)
+        var payload = {
+            message: message,
+            language: 'en',
+            country: country || null
+        }
+        fetch('/api/registration/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(function (res) {
+                if (!res.ok) {
+                    throw new Error('HTTP error ' + res.status)
+                }
+                return res.json()
+            })
+            .then(function (data) {
+                addMessage(data.reply, false)
+                addQuickActions(data.quick_actions)
+            })
+            .catch(function (err) {
+                addMessage('Sorry, something went wrong: ' + err.message, false)
+            })
+    }
+
+    function sendMessage() {
+        if (!chatMessages || !chatInput) return
+        var message = chatInput.value.trim()
+        if (!message) return
+        sendToBackend(message, null)
+        chatInput.value = ''
+    }
+
+    if (sendButton && chatInput && chatMessages) {
+        sendButton.addEventListener('click', sendMessage)
+        chatInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage()
+            }
+        })
+    }
+
+    function renderCountryInfo(info) {
+        var flagEl = document.getElementById('country-flag')
+        var titleEl = document.getElementById('country-title')
+        var descEl = document.getElementById('country-description')
+        var deadlineEl = document.getElementById('country-deadline')
+        var costEl = document.getElementById('country-cost')
+        var docsEl = document.getElementById('country-documents')
+        var sitesWrapper = document.getElementById('country-sites-wrapper')
+        var sitesEl = document.getElementById('country-sites')
+
+        if (!flagEl || !titleEl || !descEl) return
+
+        flagEl.textContent = info.flag || info.country_code.toUpperCase()
+        titleEl.textContent = info.process_title || info.country_name || info.country_code.toUpperCase()
+        descEl.textContent = info.description || ''
+        deadlineEl.textContent = info.deadline || 'N/A'
+        costEl.textContent = info.cost || 'Depends'
+
+        if (info.documents && info.documents.length) {
+            docsEl.textContent = info.documents.join(', ')
+        } else {
+            docsEl.textContent = 'Check official website'
+        }
+
+        if (info.immigration_sites && info.immigration_sites.length) {
+            sitesWrapper.style.display = 'flex'
+            sitesEl.innerHTML = ''
+            info.immigration_sites.forEach(function (site, index) {
+                var a = document.createElement('a')
+                a.href = site.url
+                a.target = '_blank'
+                a.rel = 'noopener noreferrer'
+                a.textContent = site.label || site.url
+                sitesEl.appendChild(a)
+                if (index !== info.immigration_sites.length - 1) {
+                    sitesEl.appendChild(document.createTextNode(' | '))
+                }
+            })
+        } else {
+            sitesWrapper.style.display = 'none'
+            sitesEl.innerHTML = ''
+        }
+    }
+
+    function loadRegistrationInfo(countryCode) {
+        if (!countryCode) return
+        fetch('/api/get_registration_info', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                country_code: countryCode,
+                language: 'en'
+            })
+        })
+            .then(function (res) {
+                if (!res.ok) {
+                    throw new Error('HTTP error ' + res.status)
+                }
+                return res.json()
+            })
+            .then(function (data) {
+                renderCountryInfo(data)
+            })
+            .catch(function () {})
+    }
+
+    var countrySelect = document.getElementById('country-select')
+    if (countrySelect) {
+        countrySelect.addEventListener('change', function () {
+            var code = countrySelect.value
+            if (!code) return
+            loadRegistrationInfo(code)
+        })
+    }
+
+    var mobileMenuBtn = document.querySelector('.mobile-menu-btn')
+    var navMenu = document.querySelector('.nav-menu')
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function () {
+            navMenu.classList.toggle('active')
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>'
+        })
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault()
+            var target = document.querySelector(this.getAttribute('href'))
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            }
+        })
+    })
+</script>
+</body>
+</html>

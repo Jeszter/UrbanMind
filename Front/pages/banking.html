@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMind: Banking in Slovakia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/banking.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <span class="hero-decoration plus-top">x</span>
+    <span class="hero-decoration circle-mid">o</span>
+    <span class="hero-decoration plus-bottom">+</span>
+
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+
+    <div class="dots-pattern dots-1"></div>
+    <div class="dots-pattern dots-2"></div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Banking in Slovakia Made Easy</h1>
+            <p>Get help opening a bank account in Slovakia. Our AI assistant will guide you through the process and recommend the best banks based on your location and needs.</p>
+            <a href="#location-detection" class="btn-main">Find Banks Near Me</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/banking.png" alt="AI Assistant Robot" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="location-detection" id="location-detection">
+    <div class="location-bg">
+        <div class="location-circle location-circle-1"></div>
+        <div class="location-circle location-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">Find Banks in Your Area</h2>
+        <div class="location-content">
+            <div class="location-text fade-in">
+                <h3>We'll help you find the best banking options</h3>
+                <p>Allow location access to see banks near you with services tailored to newcomers. We'll show you branches with English-speaking staff and newcomer-friendly services.</p>
+
+                <div class="detected-location" id="detected-location">
+                    <h4>Detected Location: <span id="location-name">Not detected yet</span></h4>
+                    <p id="location-description">Grant location access to see banks near you.</p>
+                    <ul id="nearby-banks-list"></ul>
+                    <a href="#bank-cards" class="btn-location" id="view-banks-btn" style="display:none;">View Recommended Banks</a>
+                </div>
+
+                <button class="btn-location" id="detect-location">
+                    <i class="fas fa-map-marker-alt"></i> Detect My Location
+                </button>
+                <p class="location-note">Your location data is processed securely and never stored on our servers.</p>
+            </div>
+            <div class="location-visual fade-in">
+                <div class="location-map">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ai-assistant" id="ai-assistant">
+    <div class="ai-assistant-bg">
+        <div class="ai-circle ai-circle-1"></div>
+        <div class="ai-circle ai-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">Banking Assistant for Slovakia</h2>
+        <div class="ai-chat-container fade-in">
+            <div class="ai-chat-header">
+                <div class="ai-chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="ai-chat-title">
+                    <h3>Slovak Banking Consultant</h3>
+                    <p>I can help you open a bank account in Slovakia</p>
+                </div>
+            </div>
+            <div class="ai-chat-messages" id="chat-messages">
+                <div class="message message-ai">
+                    <div class="message-bubble">
+                        Hello! I'm your banking assistant for Slovakia. I can help you choose a bank, understand the account opening process, and answer questions about banking services for newcomers. Where shall we start?
+                        <div class="quick-actions">
+                            <button class="quick-action" data-action="choose-bank">Choose a Bank</button>
+                            <button class="quick-action" data-action="open-account">Open Account</button>
+                            <button class="quick-action" data-action="documents">Required Documents</button>
+                            <button class="quick-action" data-action="fees">Fees & Tariffs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-chat-input">
+                <input type="text" id="chat-input" placeholder="Ask a question about Slovak banking...">
+                <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bank-cards" id="bank-cards">
+    <div class="bank-cards-bg">
+        <div class="bank-circle bank-circle-1"></div>
+        <div class="bank-circle bank-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">Popular Banks Near You</h2>
+        <div class="bank-cards-grid" id="bank-cards-grid"></div>
+    </div>
+</section>
+
+<section class="account-opening" id="account-opening">
+    <div class="account-opening-bg">
+        <div class="account-circle account-circle-1"></div>
+        <div class="account-circle account-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How to Open a Bank Account</h2>
+        <div class="steps-container" id="steps-container"></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Start Your Banking Journey</h2>
+        <p>Open an account at a local bank and enjoy all the benefits of modern banking. Our assistant is always ready to answer your questions.</p>
+        <a href="#ai-assistant" class="btn-footer">Ask the Assistant</a>
+    </div>
+</footer>
+
+<script>
+    fetch('/header.html')
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('HTTP error ' + response.status)
+            }
+            return response.text()
+        })
+        .then(function(html) {
+            document.getElementById('header-container').innerHTML = html
+        })
+        .catch(function(error) {
+            document.getElementById('header-container').innerHTML =
+                '<div style="color: red;">Error loading header: ' + error.message + '</div>'
+        })
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var mobileMenuBtn = document.getElementById('mobile-menu-btn')
+        var navMenu = document.getElementById('nav-menu')
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active')
+            })
+        }
+
+        var detectLocationBtn = document.getElementById('detect-location')
+        var detectedLocation = document.getElementById('detected-location')
+        var locationName = document.getElementById('location-name')
+        var locationDescription = document.getElementById('location-description')
+        var nearbyBanksList = document.getElementById('nearby-banks-list')
+        var viewBanksBtn = document.getElementById('view-banks-btn')
+        var bankCardsGrid = document.getElementById('bank-cards-grid')
+        var stepsContainer = document.getElementById('steps-container')
+
+        function iconToClass(icon) {
+            var key = (icon || '').toLowerCase()
+            if (key === 'piggy-bank') return 'fa-piggy-bank'
+            if (key === 'landmark') return 'fa-landmark'
+            if (key === 'building') return 'fa-building'
+            return 'fa-university'
+        }
+
+        function renderStars(container, rating) {
+            container.innerHTML = ''
+            var full = Math.floor(rating)
+            var half = rating - full >= 0.25 && rating - full < 0.75
+            var total = half ? full + 1 : full
+            for (var i = 0; i < full && i < 5; i++) {
+                var s = document.createElement('i')
+                s.className = 'fas fa-star'
+                container.appendChild(s)
+            }
+            if (half && total <= 5) {
+                var h = document.createElement('i')
+                h.className = 'fas fa-star-half-alt'
+                container.appendChild(h)
+            }
+            while (container.children.length < 5) {
+                var e = document.createElement('i')
+                e.className = 'far fa-star'
+                container.appendChild(e)
+            }
+        }
+
+        function updateUIWithBankingInfo(data) {
+            var city = data.city || ''
+            var countryName = data.country_name || ''
+            if (city) {
+                locationName.textContent = city + ', ' + countryName
+            } else {
+                locationName.textContent = countryName
+            }
+            locationDescription.textContent = 'Based on your location, we recommend these banks with branches nearby:'
+            nearbyBanksList.innerHTML = ''
+            data.banks.forEach(function(bank) {
+                var li = document.createElement('li')
+                var strong = document.createElement('strong')
+                strong.textContent = bank.name
+                li.appendChild(strong)
+                var text = ' - '
+                if (bank.branches_nearby) {
+                    text += bank.branches_nearby
+                } else if (bank.tagline) {
+                    text += bank.tagline
+                }
+                li.appendChild(document.createTextNode(text))
+                nearbyBanksList.appendChild(li)
+            })
+            detectedLocation.classList.add('active')
+            viewBanksBtn.style.display = data.banks.length ? 'inline-block' : 'none'
+
+            bankCardsGrid.innerHTML = ''
+            data.banks.forEach(function(bank) {
+                var card = document.createElement('div')
+                card.className = 'bank-card fade-in'
+
+                var header = document.createElement('div')
+                header.className = 'bank-card-header'
+
+                var logo = document.createElement('div')
+                logo.className = 'bank-logo'
+                var icon = document.createElement('i')
+                icon.className = 'fas ' + iconToClass(bank.icon)
+                logo.appendChild(icon)
+
+                var info = document.createElement('div')
+                info.className = 'bank-info'
+                var h3 = document.createElement('h3')
+                h3.textContent = bank.name
+                var p = document.createElement('p')
+                p.textContent = bank.tagline
+                info.appendChild(h3)
+                info.appendChild(p)
+
+                header.appendChild(logo)
+                header.appendChild(info)
+                card.appendChild(header)
+
+                var featuresBox = document.createElement('div')
+                featuresBox.className = 'bank-features'
+                bank.features.forEach(function(f) {
+                    var feat = document.createElement('div')
+                    feat.className = 'bank-feature'
+                    var ic = document.createElement('i')
+                    ic.className = 'fas fa-check'
+                    var span = document.createElement('span')
+                    span.textContent = f
+                    feat.appendChild(ic)
+                    feat.appendChild(span)
+                    featuresBox.appendChild(feat)
+                })
+                card.appendChild(featuresBox)
+
+                var footer = document.createElement('div')
+                footer.className = 'bank-card-footer'
+                var ratingBox = document.createElement('div')
+                ratingBox.className = 'bank-rating'
+                var stars = document.createElement('div')
+                stars.className = 'stars'
+                renderStars(stars, bank.rating_value || 0)
+                var ratingText = document.createElement('div')
+                ratingText.className = 'rating-text'
+                ratingText.textContent = bank.rating_text || ''
+                ratingBox.appendChild(stars)
+                ratingBox.appendChild(ratingText)
+
+                var link = document.createElement('a')
+                link.className = 'btn-bank'
+                link.textContent = 'Learn More'
+                if (bank.url) {
+                    link.href = bank.url
+                    link.target = '_blank'
+                    link.rel = 'noopener noreferrer'
+                } else {
+                    link.href = '#'
+                }
+
+                footer.appendChild(ratingBox)
+                footer.appendChild(link)
+                card.appendChild(footer)
+
+                bankCardsGrid.appendChild(card)
+            })
+
+            stepsContainer.innerHTML = ''
+            data.steps.forEach(function(step) {
+                var card = document.createElement('div')
+                card.className = 'step-card fade-in'
+                var num = document.createElement('div')
+                num.className = 'step-number'
+                num.textContent = step.number
+                var t = document.createElement('h3')
+                t.textContent = step.title
+                var d = document.createElement('p')
+                d.textContent = step.description
+                card.appendChild(num)
+                card.appendChild(t)
+                card.appendChild(d)
+                stepsContainer.appendChild(card)
+            })
+        }
+
+        function requestBankingInfo(payload) {
+            return fetch('/api/get_banking_info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(function(res) {
+                if (!res.ok) {
+                    throw new Error('HTTP error ' + res.status)
+                }
+                return res.json()
+            })
+        }
+
+        function detectAndLoad() {
+            detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting Location...'
+            detectLocationBtn.disabled = true
+            var payload = {language: 'en'}
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        payload.latitude = pos.coords.latitude
+                        payload.longitude = pos.coords.longitude
+                        requestBankingInfo(payload)
+                            .then(function(data) {
+                                updateUIWithBankingInfo(data)
+                                detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                                detectLocationBtn.style.backgroundColor = '#4CAF50'
+                            })
+                            .catch(function() {
+                                detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                            })
+                    },
+                    function() {
+                        requestBankingInfo(payload)
+                            .then(function(data) {
+                                updateUIWithBankingInfo(data)
+                                detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                                detectLocationBtn.style.backgroundColor = '#4CAF50'
+                            })
+                            .catch(function() {
+                                detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                            })
+                    }
+                )
+            } else {
+                requestBankingInfo(payload)
+                    .then(function(data) {
+                        updateUIWithBankingInfo(data)
+                        detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                        detectLocationBtn.style.backgroundColor = '#4CAF50'
+                    })
+                    .catch(function() {
+                        detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                    })
+            }
+        }
+
+        if (detectLocationBtn) {
+            detectLocationBtn.addEventListener('click', detectAndLoad)
+        }
+
+        var chatMessages = document.getElementById('chat-messages')
+        var chatInput = document.getElementById('chat-input')
+        var sendButton = document.getElementById('send-button')
+
+        document.querySelectorAll('.quick-action').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var action = this.getAttribute('data-action')
+                handleQuickAction(action)
+            })
+        })
+
+        if (sendButton) {
+            sendButton.addEventListener('click', sendMessage)
+        }
+        if (chatInput) {
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage()
+                }
+            })
+        }
+
+        function addMessage(sender, text, quickActions) {
+            var messageDiv = document.createElement('div')
+            messageDiv.className = 'message message-' + sender
+            var bubbleDiv = document.createElement('div')
+            bubbleDiv.className = 'message-bubble'
+            bubbleDiv.textContent = text
+            if (quickActions && sender === 'ai') {
+                var actionsDiv = document.createElement('div')
+                actionsDiv.className = 'quick-actions'
+                quickActions.forEach(function(action) {
+                    var button = document.createElement('button')
+                    button.className = 'quick-action'
+                    button.textContent = action.label
+                    button.setAttribute('data-action', action.action)
+                    button.addEventListener('click', function() {
+                        handleQuickAction(action.action)
+                    })
+                    actionsDiv.appendChild(button)
+                })
+                bubbleDiv.appendChild(actionsDiv)
+            }
+            messageDiv.appendChild(bubbleDiv)
+            chatMessages.appendChild(messageDiv)
+            chatMessages.scrollTop = chatMessages.scrollHeight
+        }
+
+        function getAIResponse(message) {
+            var lowerMessage = message.toLowerCase()
+            if (lowerMessage.indexOf('bank') !== -1 || lowerMessage.indexOf('choose') !== -1) {
+                return {
+                    text: 'When choosing a bank, consider branch locations, English services, monthly fees, digital banking quality, and international transfer costs. Large national banks and digital banks can both be good options.',
+                    quickActions: [
+                        { label: 'Documents', action: 'documents' },
+                        { label: 'Fees', action: 'fees' }
+                    ]
+                }
+            } else if (lowerMessage.indexOf('document') !== -1 || lowerMessage.indexOf('open') !== -1) {
+                return {
+                    text: 'To open an account you typically need a valid passport, proof of address, proof of legal stay, and sometimes proof of income or student status. Some banks allow starting the process online.',
+                    quickActions: [
+                        { label: 'Fees', action: 'fees' },
+                        { label: 'Visit branch', action: 'visit' }
+                    ]
+                }
+            } else if (lowerMessage.indexOf('fee') !== -1 || lowerMessage.indexOf('tariff') !== -1) {
+                return {
+                    text: 'Account fees vary, but basic accounts usually have low monthly fees and free cards. Digital-only banks may offer cheaper international payments.',
+                    quickActions: [
+                        { label: 'Choose a bank', action: 'choose-bank' },
+                        { label: 'Open account', action: 'open-account' }
+                    ]
+                }
+            } else {
+                return {
+                    text: 'I can help with choosing a bank, opening an account, understanding fees, and other banking questions. What exactly are you interested in?',
+                    quickActions: [
+                        { label: 'Choose a bank', action: 'choose-bank' },
+                        { label: 'Open account', action: 'open-account' },
+                        { label: 'Documents', action: 'documents' },
+                        { label: 'Fees', action: 'fees' }
+                    ]
+                }
+            }
+        }
+
+        function sendMessage() {
+            var message = chatInput.value.trim()
+            if (!message) return
+            addMessage('user', message)
+            chatInput.value = ''
+            setTimeout(function() {
+                var response = getAIResponse(message)
+                addMessage('ai', response.text, response.quickActions)
+            }, 600)
+        }
+
+        function handleQuickAction(action) {
+            var message
+            var quickActions = null
+            if (action === 'choose-bank') {
+                message = 'Help me choose a bank.'
+                quickActions = [
+                    { label: 'Documents', action: 'documents' },
+                    { label: 'Fees', action: 'fees' }
+                ]
+            } else if (action === 'open-account') {
+                message = 'Tell me about the account opening procedure for foreigners.'
+                quickActions = [
+                    { label: 'Documents', action: 'documents' },
+                    { label: 'Visit branch', action: 'visit' }
+                ]
+            } else if (action === 'documents') {
+                message = 'What documents are needed to open an account?'
+            } else if (action === 'fees') {
+                message = 'What are the typical bank fees?'
+            } else {
+                message = 'Tell me more about ' + action
+            }
+            addMessage('user', message)
+            setTimeout(function() {
+                var response = getAIResponse(message)
+                addMessage('ai', response.text, response.quickActions)
+            }, 600)
+        }
+    })
+</script>
+</body>
+</html>

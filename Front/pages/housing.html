@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housing & Living - UrbanMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/housing.css">
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<section class="hero" id="home">
+    <div class="hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container hero-content">
+        <div class="hero-text fade-in">
+            <h1>Find Your Perfect Home</h1>
+            <p>Discover housing options that match your needs and budget with our AI-powered housing assistant. We'll help you find the perfect place to live in your new city.</p>
+            <a href="#rental-sites" class="btn-main">Find Rental Sites</a>
+        </div>
+        <div class="robot-container fade-in">
+            <div class="robot-bg"></div>
+            <img src="../img/home.png" alt="AI Housing Assistant" class="robot-image">
+        </div>
+    </div>
+</section>
+
+<section class="rental-sites-section" id="rental-sites">
+    <div class="container">
+        <h2 class="sections-heading">Rental Websites in Your Country</h2>
+
+        <div class="location-detection fade-in">
+            <h3>Find Rental Websites Based on Your Location</h3>
+            <p>We'll automatically detect your country to show the most popular rental websites in your area.</p>
+
+            <div class="location-status detecting">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Detecting your location...</span>
+            </div>
+
+            <div class="country-selector">
+                <p>Or select your country manually:</p>
+                <select id="country-select">
+                    <option value="">Select a country</option>
+                    <option value="sk">Slovakia</option>
+                    <option value="cz">Czech Republic</option>
+                    <option value="pl">Poland</option>
+                    <option value="hu">Hungary</option>
+                    <option value="at">Austria</option>
+                    <option value="de">Germany</option>
+                    <option value="fr">France</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="us">United States</option>
+                </select>
+                <button id="update-location">Update Location</button>
+            </div>
+        </div>
+
+        <div class="rental-sites-container">
+            <h3 class="sections-heading">Recommended Rental Websites</h3>
+            <div class="rental-sites-grid" id="rental-sites-grid"></div>
+        </div>
+    </div>
+</section>
+
+<section class="living-assistance">
+    <div class="container">
+        <h2 class="sections-heading">Living Assistance</h2>
+        <div class="assistance-grid">
+            <div class="assistance-card fade-in">
+                <div class="assistance-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>Rental Contracts</h3>
+                <p>Help with understanding and negotiating rental agreements and contracts.</p>
+            </div>
+
+            <div class="assistance-card fade-in">
+                <div class="assistance-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Utilities Setup</h3>
+                <p>Guidance on setting up electricity, water, internet and other utilities.</p>
+            </div>
+
+            <div class="assistance-card fade-in">
+                <div class="assistance-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Neighborhood Guide</h3>
+                <p>Information about neighborhoods, safety, amenities and transportation.</p>
+            </div>
+
+            <div class="assistance-card fade-in">
+                <div class="assistance-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3>Financial Advice</h3>
+                <p>Budget planning and understanding rental costs in your new city.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="features-bg">
+        <div class="features-circle features-circle-1"></div>
+        <div class="features-circle features-circle-2"></div>
+    </div>
+
+    <div class="container">
+        <h2 class="sections-heading">How Our Housing Service Works</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Smart Search</h3>
+                <p>Our AI analyzes thousands of listings to find properties that match your preferences, budget and lifestyle.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-euro-sign"></i>
+                </div>
+                <h3>Price Analysis</h3>
+                <p>Get insights on fair market prices and avoid overpaying for your rental or purchase.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Location Intelligence</h3>
+                <p>Find the best neighborhoods based on your commute, amenities, and lifestyle preferences.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Rental Assistance</h3>
+                <p>Get help with contracts, negotiations, and understanding your rights as a tenant.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h2>Start Your New Life Today</h2>
+        <p>Join thousands who have found their perfect home with UrbanMind's intelligent housing assistance.</p>
+        <a href="#rental-sites" class="btn-footer">Find Your Home</a>
+    </div>
+</footer>
+
+<script>
+    const locationStatus = document.querySelector(".location-status");
+    const countrySelect = document.getElementById("country-select");
+    const updateLocationBtn = document.getElementById("update-location");
+    const rentalSitesGrid = document.getElementById("rental-sites-grid");
+
+    function renderSitesFromList(sites, labelCountry, cityGuess) {
+        rentalSitesGrid.innerHTML = "";
+        if (!sites || sites.length === 0) {
+            rentalSitesGrid.innerHTML =
+                '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">No rental sites available for this location. Please try another country.</p>';
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>No sites found for this location.</span>';
+            }
+            return;
+        }
+
+        const countryLabel = labelCountry || "Selected location";
+        const cityLabel = cityGuess && cityGuess !== "Unknown" ? cityGuess : "";
+        if (locationStatus) {
+            locationStatus.className = "location-status detected";
+            locationStatus.innerHTML =
+                '<i class="fas fa-check-circle"></i>' +
+                '<span>Showing rental sites for: <span class="detected-location">' +
+                countryLabel +
+                (cityLabel ? " (" + cityLabel + ")" : "") +
+                "</span></span>";
+        }
+
+        sites.forEach(site => {
+            const card = document.createElement("div");
+            card.className = "rental-site-card fade-in";
+
+            const iconClass = site.icon || "fas fa-home";
+            const name = site.name || "Rental site";
+            const desc = site.description || "";
+            const url = site.url || "#";
+
+            card.innerHTML =
+                '<div class="rental-site-icon">' +
+                '<i class="' + iconClass + '"></i>' +
+                "</div>" +
+                "<h3>" + name + "</h3>" +
+                "<p>" + desc + "</p>" +
+                '<a href="' + url + '" target="_blank" class="rental-site-link">Visit Site</a>';
+
+            rentalSitesGrid.appendChild(card);
+        });
+    }
+
+    async function requestHousingFromAI(latitude, longitude, countryHint) {
+        if (locationStatus) {
+            locationStatus.className = "location-status detecting";
+            locationStatus.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i><span>Looking for rental websites near you...</span>';
+        }
+        rentalSitesGrid.innerHTML = "";
+
+        const uiLang = (navigator.language || "en").slice(0, 2);
+
+        const body = {
+            latitude: latitude !== undefined ? latitude : null,
+            longitude: longitude !== undefined ? longitude : null,
+            country_code: countryHint || null,
+            language: uiLang
+        };
+
+        try {
+            const resp = await fetch("/api/get_housing_sites", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            if (!resp.ok) {
+                throw new Error("HTTP " + resp.status);
+            }
+
+            const json = await resp.json();
+
+            const sites = Array.isArray(json.sites) ? json.sites : [];
+            const labelCountry = json.country_name || "Your location";
+            const cityGuess = json.city || "";
+
+            if (sites.length > 0) {
+                renderSitesFromList(sites, labelCountry, cityGuess);
+            } else {
+                rentalSitesGrid.innerHTML =
+                    '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">Could not load rental websites for your location.</p>';
+                if (locationStatus) {
+                    locationStatus.className = "location-status detected";
+                    locationStatus.innerHTML =
+                        '<i class="fas fa-exclamation-circle"></i><span>Could not load sites for your location.</span>';
+                }
+            }
+        } catch (e) {
+            rentalSitesGrid.innerHTML =
+                '<p style="text-align: center; padding: 40px; color: var(--color-light-text);">Error contacting server. Please try again later.</p>';
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>Error contacting server.</span>';
+            }
+        }
+    }
+
+    function detectLocation() {
+        if (!navigator.geolocation) {
+            if (locationStatus) {
+                locationStatus.className = "location-status detected";
+                locationStatus.innerHTML =
+                    '<i class="fas fa-exclamation-circle"></i><span>Automatic location detection is not supported. Please select your country manually.</span>';
+            }
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                requestHousingFromAI(lat, lon, null);
+            },
+            () => {
+                if (locationStatus) {
+                    locationStatus.className = "location-status detected";
+                    locationStatus.innerHTML =
+                        '<i class="fas fa-exclamation-circle"></i><span>Could not detect your location. Please select your country manually.</span>';
+                }
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    }
+
+    updateLocationBtn.addEventListener("click", () => {
+        const selectedCountry = countrySelect.value;
+        if (!selectedCountry) {
+            alert("Please select a country first.");
+            return;
+        }
+        requestHousingFromAI(null, null, selectedCountry);
+    });
+
+    detectLocation();
+
+    const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+    const navMenu = document.querySelector(".nav-menu");
+
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+            mobileMenuBtn.innerHTML = navMenu.classList.contains("active")
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+    }
+</script>
+
+<script>
+    fetch("/header.html")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById("header-container").innerHTML = html;
+        })
+        .catch(error => {
+            document.getElementById("header-container").innerHTML =
+                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+        });
+</script>
+</body>
+</html>

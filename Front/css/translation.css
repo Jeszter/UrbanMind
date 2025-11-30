@@ -262,12 +262,14 @@ main {
 }
 
 .language-label {
+    padding: 25px 20px; /* сверху/снизу 25px, слева/справа 20px */
     font-weight: 600;
     color: var(--color-dark-text);
 }
 
 .language-selector {
     position: relative;
+    padding: 0 20px; /* отступы слева и справа */
 }
 
 .language-selector select {
@@ -291,8 +293,8 @@ main {
 .language-selector::after {
     content: '⌄';
     position: absolute;
-    right: 15px;
-    top: 50%;
+    right: 35px;
+    top: 43%;
     transform: translateY(-50%);
     color: var(--color-light-text);
     pointer-events: none;

@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/offices.css">
 </head>
-<body>
-<div id="header-container"></div>
 
+<body>
+
+<!-- HEADER -->
+<div id="header-container"></div>
 
 <section class="hero" id="home">
     <div class="hero-bg">
@@ -41,8 +43,8 @@
         <div class="search-container fade-in">
             <form class="search-form" id="search-form">
                 <div class="form-group">
-                    <label for="search-query">Search Query</label>
-                    <input type="text" class="form-control" id="search-query" placeholder="e.g., address registration form in Poland">
+                    <label for="search-query">Address or city</label>
+                    <input type="text" class="form-control" id="search-query" placeholder="e.g., Bratislava, Nivy or Košice, Old Town">
                 </div>
                 <button type="submit" class="search-button">
                     <i class="fas fa-search"></i> Find Forms & Offices
@@ -53,19 +55,18 @@
         <div class="results-container fade-in" id="results-container">
             <div class="results-header">
                 <h3>Search Results</h3>
-                <div class="results-count" id="results-count">Found: 0 forms</div>
+                <div class="results-count" id="results-count">Found: 0 centers</div>
             </div>
             <div id="results-content">
                 <div class="no-results">
                     <i class="fas fa-search"></i>
-                    <h3>Enter a search query to find forms and offices</h3>
-                    <p>Use the form above to search for official document forms and contact information</p>
+                    <h3>Enter an address or city to find nearby offices</h3>
+                    <p>Use the form above to search for migration police offices and migrant support centers near you</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 
 <footer class="footer">
     <div class="container">
@@ -422,25 +423,22 @@
 
 
 <script>
-
     fetch('/header.html')
         .then(response => {
-            console.log("Response status:", response.status);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error("Header load failed: " + response.status);
             return response.text();
         })
         .then(html => {
-            console.log("Header loaded successfully");
             document.getElementById('header-container').innerHTML = html;
         })
-        .catch(error => {
-            console.error('Error loading header:', error);
+        .catch(err => {
             document.getElementById('header-container').innerHTML =
-                `<div style="color: red;">Error loading header: ${error.message}</div>`;
+                `<div style="color:red;">Error loading header: ${err.message}</div>`;
         });
 </script>
+
+<!-- OFFICES JS -->
+<script src="../js/offices.js"></script>
 
 </body>
 </html>
