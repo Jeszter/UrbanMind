@@ -58,6 +58,7 @@ def geolocate_ip(ip: str) -> Dict[str, str]:
 
 
 def ask_ai_for_housing_sites(location_text: str, ui_language: str) -> List[Dict[str, Any]]:
+    ui_language = "en"
     system_prompt = """
 You are an expert housing-market assistant. Given the user's location (city, region, country), return the best relevant online long-term housing and rental websites.
 
@@ -120,7 +121,7 @@ def set_cache(key: str, data: Dict[str, Any]):
 
 @router.post("/get_housing_sites")
 async def get_housing_sites(req: LocationRequest, request: Request):
-    ui_lang = req.language or "en"
+    ui_lang = "en"
 
     if req.latitude and req.longitude:
         geo = reverse_geocode(req.latitude, req.longitude)
