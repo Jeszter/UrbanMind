@@ -21,6 +21,8 @@ from back.chat_backend import router as chat_router
 from back.offices_back import router as offices_router
 from back.housing_backend import router as housing_router
 from back.registration_routes import router as registration_router
+from back.banking_routes import router as banking_router
+
 
 app = FastAPI()
 
@@ -131,7 +133,7 @@ app.include_router(culture_router, prefix="/api/culture")
 app.include_router(chat_router, prefix="/api")
 app.include_router(offices_router, prefix="/api")
 app.include_router(registration_router)
-
+app.include_router(banking_router)
 
 
 if __name__ == "__main__":

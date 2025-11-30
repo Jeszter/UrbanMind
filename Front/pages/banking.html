@@ -53,17 +53,13 @@
         <div class="location-content">
             <div class="location-text fade-in">
                 <h3>We'll help you find the best banking options</h3>
-                <p>Allow location access to see banks near you with services tailored to newcomers in Slovakia. We'll show you branches with English-speaking staff and newcomer-friendly services.</p>
+                <p>Allow location access to see banks near you with services tailored to newcomers. We'll show you branches with English-speaking staff and newcomer-friendly services.</p>
 
                 <div class="detected-location" id="detected-location">
-                    <h4>Detected Location: <span id="location-name">Bratislava, Slovakia</span></h4>
-                    <p>Based on your location, we recommend these banks with branches nearby:</p>
-                    <ul>
-                        <li><strong>SLSP (Slovenská sporiteľňa)</strong> - 3 branches within 2km</li>
-                        <li><strong>VÚB Banka</strong> - 2 branches within 1.5km</li>
-                        <li><strong>Tatra banka</strong> - 1 branch within 1km</li>
-                    </ul>
-                    <a href="#bank-cards" class="btn-location">View Recommended Banks</a>
+                    <h4>Detected Location: <span id="location-name">Not detected yet</span></h4>
+                    <p id="location-description">Grant location access to see banks near you.</p>
+                    <ul id="nearby-banks-list"></ul>
+                    <a href="#bank-cards" class="btn-location" id="view-banks-btn" style="display:none;">View Recommended Banks</a>
                 </div>
 
                 <button class="btn-location" id="detect-location">
@@ -126,137 +122,8 @@
     </div>
 
     <div class="container">
-        <h2 class="sections-heading">Popular Banks in Slovakia</h2>
-        <div class="bank-cards-grid">
-            <div class="bank-card fade-in">
-                <div class="bank-card-header">
-                    <div class="bank-logo">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="bank-info">
-                        <h3>SLSP</h3>
-                        <p>Slovenská sporiteľňa</p>
-                    </div>
-                </div>
-                <div class="bank-features">
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Largest bank network in Slovakia</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>English-speaking staff in major branches</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Student accounts with benefits</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Mobile app with English interface</span>
-                    </div>
-                </div>
-                <div class="bank-card-footer">
-                    <div class="bank-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <div class="rating-text">4.4/5 (1,240 reviews)</div>
-                    </div>
-                    <a href="#" class="btn-bank">Learn More</a>
-                </div>
-            </div>
-
-            <div class="bank-card fade-in">
-                <div class="bank-card-header">
-                    <div class="bank-logo">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <div class="bank-info">
-                        <h3>VÚB Banka</h3>
-                        <p>Member of Intesa Sanpaolo Group</p>
-                    </div>
-                </div>
-                <div class="bank-features">
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>International banking services</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Good for EU citizens</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Multi-currency accounts</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Online account opening available</span>
-                    </div>
-                </div>
-                <div class="bank-card-footer">
-                    <div class="bank-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="rating-text">4.7/5 (980 reviews)</div>
-                    </div>
-                    <a href="#" class="btn-bank">Learn More</a>
-                </div>
-            </div>
-
-            <div class="bank-card fade-in">
-                <div class="bank-card-header">
-                    <div class="bank-logo">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <div class="bank-info">
-                        <h3>Tatra banka</h3>
-                        <p>Innovative digital banking</p>
-                    </div>
-                </div>
-                <div class="bank-features">
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Best digital banking experience</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>English mobile and online banking</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Expat-friendly services</span>
-                    </div>
-                    <div class="bank-feature">
-                        <i class="fas fa-check"></i>
-                        <span>24/7 customer support in English</span>
-                    </div>
-                </div>
-                <div class="bank-card-footer">
-                    <div class="bank-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="rating-text">4.8/5 (1,560 reviews)</div>
-                    </div>
-                    <a href="#" class="btn-bank">Learn More</a>
-                </div>
-            </div>
-        </div>
+        <h2 class="sections-heading">Popular Banks Near You</h2>
+        <div class="bank-cards-grid" id="bank-cards-grid"></div>
     </div>
 </section>
 
@@ -267,252 +134,391 @@
     </div>
 
     <div class="container">
-        <h2 class="sections-heading">How to Open a Bank Account in Slovakia</h2>
-        <div class="steps-container">
-            <div class="step-card fade-in">
-                <div class="step-number">1</div>
-                <h3>Choose Your Bank</h3>
-                <p>Select a bank that fits your needs. Consider branch locations, English services, fees, and digital banking options.</p>
-            </div>
-            <div class="step-card fade-in">
-                <div class="step-number">2</div>
-                <h3>Prepare Documents</h3>
-                <p>You'll typically need: valid passport, proof of address in Slovakia, and proof of legal stay (visa/residence permit).</p>
-            </div>
-            <div class="step-card fade-in">
-                <div class="step-number">3</div>
-                <h3>Visit the Branch</h3>
-                <p>Schedule an appointment or visit during opening hours. Major branches in cities usually have English-speaking staff.</p>
-            </div>
-            <div class="step-card fade-in">
-                <div class="step-number">4</div>
-                <h3>Complete Application</h3>
-                <p>Fill out forms, provide documents, and make initial deposit if required. Receive your account details and bank card.</p>
-            </div>
-        </div>
+        <h2 class="sections-heading">How to Open a Bank Account</h2>
+        <div class="steps-container" id="steps-container"></div>
     </div>
 </section>
 
 <footer class="footer">
     <div class="container">
-        <h2>Start Your Banking Journey in Slovakia</h2>
-        <p>Open an account at a Slovak bank and enjoy all the benefits of modern banking. Our assistant is always ready to answer your questions.</p>
+        <h2>Start Your Banking Journey</h2>
+        <p>Open an account at a local bank and enjoy all the benefits of modern banking. Our assistant is always ready to answer your questions.</p>
         <a href="#ai-assistant" class="btn-footer">Ask the Assistant</a>
     </div>
 </footer>
 
 <script>
-
     fetch('/header.html')
-        .then(response => {
+        .then(function(response) {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error('HTTP error ' + response.status)
             }
-            return response.text();
+            return response.text()
         })
-        .then(html => {
-            document.getElementById('header-container').innerHTML = html;
+        .then(function(html) {
+            document.getElementById('header-container').innerHTML = html
         })
-        .catch(error => {
+        .catch(function(error) {
             document.getElementById('header-container').innerHTML =
-                `<div style="color: red;">Error loading header: ${error.message}</div>`;
-        });
+                '<div style="color: red;">Error loading header: ' + error.message + '</div>'
+        })
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const navMenu = document.getElementById('nav-menu');
-
+        var mobileMenuBtn = document.getElementById('mobile-menu-btn')
+        var navMenu = document.getElementById('nav-menu')
         if (mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-            });
+                navMenu.classList.toggle('active')
+            })
         }
 
-        // Location detection
-        const detectLocationBtn = document.getElementById('detect-location');
-        const detectedLocation = document.getElementById('detected-location');
-        const locationName = document.getElementById('location-name');
+        var detectLocationBtn = document.getElementById('detect-location')
+        var detectedLocation = document.getElementById('detected-location')
+        var locationName = document.getElementById('location-name')
+        var locationDescription = document.getElementById('location-description')
+        var nearbyBanksList = document.getElementById('nearby-banks-list')
+        var viewBanksBtn = document.getElementById('view-banks-btn')
+        var bankCardsGrid = document.getElementById('bank-cards-grid')
+        var stepsContainer = document.getElementById('steps-container')
+
+        function iconToClass(icon) {
+            var key = (icon || '').toLowerCase()
+            if (key === 'piggy-bank') return 'fa-piggy-bank'
+            if (key === 'landmark') return 'fa-landmark'
+            if (key === 'building') return 'fa-building'
+            return 'fa-university'
+        }
+
+        function renderStars(container, rating) {
+            container.innerHTML = ''
+            var full = Math.floor(rating)
+            var half = rating - full >= 0.25 && rating - full < 0.75
+            var total = half ? full + 1 : full
+            for (var i = 0; i < full && i < 5; i++) {
+                var s = document.createElement('i')
+                s.className = 'fas fa-star'
+                container.appendChild(s)
+            }
+            if (half && total <= 5) {
+                var h = document.createElement('i')
+                h.className = 'fas fa-star-half-alt'
+                container.appendChild(h)
+            }
+            while (container.children.length < 5) {
+                var e = document.createElement('i')
+                e.className = 'far fa-star'
+                container.appendChild(e)
+            }
+        }
+
+        function updateUIWithBankingInfo(data) {
+            var city = data.city || ''
+            var countryName = data.country_name || ''
+            if (city) {
+                locationName.textContent = city + ', ' + countryName
+            } else {
+                locationName.textContent = countryName
+            }
+            locationDescription.textContent = 'Based on your location, we recommend these banks with branches nearby:'
+            nearbyBanksList.innerHTML = ''
+            data.banks.forEach(function(bank) {
+                var li = document.createElement('li')
+                var strong = document.createElement('strong')
+                strong.textContent = bank.name
+                li.appendChild(strong)
+                var text = ' - '
+                if (bank.branches_nearby) {
+                    text += bank.branches_nearby
+                } else if (bank.tagline) {
+                    text += bank.tagline
+                }
+                li.appendChild(document.createTextNode(text))
+                nearbyBanksList.appendChild(li)
+            })
+            detectedLocation.classList.add('active')
+            viewBanksBtn.style.display = data.banks.length ? 'inline-block' : 'none'
+
+            bankCardsGrid.innerHTML = ''
+            data.banks.forEach(function(bank) {
+                var card = document.createElement('div')
+                card.className = 'bank-card fade-in'
+
+                var header = document.createElement('div')
+                header.className = 'bank-card-header'
+
+                var logo = document.createElement('div')
+                logo.className = 'bank-logo'
+                var icon = document.createElement('i')
+                icon.className = 'fas ' + iconToClass(bank.icon)
+                logo.appendChild(icon)
+
+                var info = document.createElement('div')
+                info.className = 'bank-info'
+                var h3 = document.createElement('h3')
+                h3.textContent = bank.name
+                var p = document.createElement('p')
+                p.textContent = bank.tagline
+                info.appendChild(h3)
+                info.appendChild(p)
+
+                header.appendChild(logo)
+                header.appendChild(info)
+                card.appendChild(header)
+
+                var featuresBox = document.createElement('div')
+                featuresBox.className = 'bank-features'
+                bank.features.forEach(function(f) {
+                    var feat = document.createElement('div')
+                    feat.className = 'bank-feature'
+                    var ic = document.createElement('i')
+                    ic.className = 'fas fa-check'
+                    var span = document.createElement('span')
+                    span.textContent = f
+                    feat.appendChild(ic)
+                    feat.appendChild(span)
+                    featuresBox.appendChild(feat)
+                })
+                card.appendChild(featuresBox)
+
+                var footer = document.createElement('div')
+                footer.className = 'bank-card-footer'
+                var ratingBox = document.createElement('div')
+                ratingBox.className = 'bank-rating'
+                var stars = document.createElement('div')
+                stars.className = 'stars'
+                renderStars(stars, bank.rating_value || 0)
+                var ratingText = document.createElement('div')
+                ratingText.className = 'rating-text'
+                ratingText.textContent = bank.rating_text || ''
+                ratingBox.appendChild(stars)
+                ratingBox.appendChild(ratingText)
+
+                var link = document.createElement('a')
+                link.className = 'btn-bank'
+                link.textContent = 'Learn More'
+                if (bank.url) {
+                    link.href = bank.url
+                    link.target = '_blank'
+                    link.rel = 'noopener noreferrer'
+                } else {
+                    link.href = '#'
+                }
+
+                footer.appendChild(ratingBox)
+                footer.appendChild(link)
+                card.appendChild(footer)
+
+                bankCardsGrid.appendChild(card)
+            })
+
+            stepsContainer.innerHTML = ''
+            data.steps.forEach(function(step) {
+                var card = document.createElement('div')
+                card.className = 'step-card fade-in'
+                var num = document.createElement('div')
+                num.className = 'step-number'
+                num.textContent = step.number
+                var t = document.createElement('h3')
+                t.textContent = step.title
+                var d = document.createElement('p')
+                d.textContent = step.description
+                card.appendChild(num)
+                card.appendChild(t)
+                card.appendChild(d)
+                stepsContainer.appendChild(card)
+            })
+        }
+
+        function requestBankingInfo(payload) {
+            return fetch('/api/get_banking_info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(function(res) {
+                if (!res.ok) {
+                    throw new Error('HTTP error ' + res.status)
+                }
+                return res.json()
+            })
+        }
+
+        function detectAndLoad() {
+            detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting Location...'
+            detectLocationBtn.disabled = true
+            var payload = {language: 'en'}
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        payload.latitude = pos.coords.latitude
+                        payload.longitude = pos.coords.longitude
+                        requestBankingInfo(payload)
+                            .then(function(data) {
+                                updateUIWithBankingInfo(data)
+                                detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                                detectLocationBtn.style.backgroundColor = '#4CAF50'
+                            })
+                            .catch(function() {
+                                detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                            })
+                    },
+                    function() {
+                        requestBankingInfo(payload)
+                            .then(function(data) {
+                                updateUIWithBankingInfo(data)
+                                detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                                detectLocationBtn.style.backgroundColor = '#4CAF50'
+                            })
+                            .catch(function() {
+                                detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                            })
+                    }
+                )
+            } else {
+                requestBankingInfo(payload)
+                    .then(function(data) {
+                        updateUIWithBankingInfo(data)
+                        detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected'
+                        detectLocationBtn.style.backgroundColor = '#4CAF50'
+                    })
+                    .catch(function() {
+                        detectLocationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error'
+                    })
+            }
+        }
 
         if (detectLocationBtn) {
-            detectLocationBtn.addEventListener('click', function() {
-                detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting Location...';
-                detectLocationBtn.disabled = true;
-
-                // Simulate location detection (in a real app, this would use the Geolocation API)
-                setTimeout(() => {
-                    // This is a simulation - in a real app, you would use:
-                    // navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
-                    // For demonstration, we'll assume the user is in Bratislava
-                    const cities = ['Bratislava', 'Košice', 'Prešov', 'Žilina', 'Banská Bystrica'];
-                    const randomCity = cities[Math.floor(Math.random() * cities.length)];
-
-                    locationName.textContent = `${randomCity}, Slovakia`;
-                    detectedLocation.classList.add('active');
-
-                    detectLocationBtn.innerHTML = '<i class="fas fa-check"></i> Location Detected';
-                    detectLocationBtn.style.backgroundColor = '#4CAF50';
-                }, 2000);
-            });
+            detectLocationBtn.addEventListener('click', detectAndLoad)
         }
 
-        // Chat functionality
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const sendButton = document.getElementById('send-button');
+        var chatMessages = document.getElementById('chat-messages')
+        var chatInput = document.getElementById('chat-input')
+        var sendButton = document.getElementById('send-button')
 
-        // Quick action buttons
-        document.querySelectorAll('.quick-action').forEach(button => {
+        document.querySelectorAll('.quick-action').forEach(function(button) {
             button.addEventListener('click', function() {
-                const action = this.getAttribute('data-action');
-                handleQuickAction(action);
-            });
-        });
+                var action = this.getAttribute('data-action')
+                handleQuickAction(action)
+            })
+        })
 
-        // Send message on button click
-        sendButton.addEventListener('click', sendMessage);
-
-        // Send message on Enter key
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (message === '') return;
-
-            // Add user message
-            addMessage('user', message);
-            chatInput.value = '';
-
-            // Simulate AI response
-            setTimeout(() => {
-                const response = getAIResponse(message);
-                addMessage('ai', response.text, response.quickActions);
-            }, 1000);
+        if (sendButton) {
+            sendButton.addEventListener('click', sendMessage)
+        }
+        if (chatInput) {
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage()
+                }
+            })
         }
 
-        function addMessage(sender, text, quickActions = null) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message message-${sender}`;
-
-            const bubbleDiv = document.createElement('div');
-            bubbleDiv.className = 'message-bubble';
-            bubbleDiv.textContent = text;
-
+        function addMessage(sender, text, quickActions) {
+            var messageDiv = document.createElement('div')
+            messageDiv.className = 'message message-' + sender
+            var bubbleDiv = document.createElement('div')
+            bubbleDiv.className = 'message-bubble'
+            bubbleDiv.textContent = text
             if (quickActions && sender === 'ai') {
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'quick-actions';
-
-                quickActions.forEach(action => {
-                    const button = document.createElement('button');
-                    button.className = 'quick-action';
-                    button.textContent = action.label;
-                    button.setAttribute('data-action', action.action);
+                var actionsDiv = document.createElement('div')
+                actionsDiv.className = 'quick-actions'
+                quickActions.forEach(function(action) {
+                    var button = document.createElement('button')
+                    button.className = 'quick-action'
+                    button.textContent = action.label
+                    button.setAttribute('data-action', action.action)
                     button.addEventListener('click', function() {
-                        handleQuickAction(action.action);
-                    });
-                    actionsDiv.appendChild(button);
-                });
-
-                bubbleDiv.appendChild(actionsDiv);
+                        handleQuickAction(action.action)
+                    })
+                    actionsDiv.appendChild(button)
+                })
+                bubbleDiv.appendChild(actionsDiv)
             }
-
-            messageDiv.appendChild(bubbleDiv);
-            chatMessages.appendChild(messageDiv);
-
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function handleQuickAction(action) {
-            let message = '';
-            let quickActions = null;
-
-            switch(action) {
-                case 'choose-bank':
-                    message = 'Help me choose a bank in Slovakia. What should I consider?';
-                    quickActions = [
-                        { label: 'SLSP', action: 'slsp' },
-                        { label: 'VÚB Banka', action: 'vub' },
-                        { label: 'Tatra banka', action: 'tatra' },
-                        { label: 'Other banks', action: 'other-banks' }
-                    ];
-                    break;
-                case 'open-account':
-                    message = 'Tell me about the account opening procedure for foreigners in Slovakia';
-                    quickActions = [
-                        { label: 'Documents', action: 'documents' },
-                        { label: 'Cost', action: 'fees' },
-                        { label: 'Online opening', action: 'online' },
-                        { label: 'Timing', action: 'timing' }
-                    ];
-                    break;
-                case 'documents':
-                    message = 'What documents are needed to open an account in Slovakia?';
-                    break;
-                case 'fees':
-                    message = 'What are the fees and tariffs in Slovak banks?';
-                    break;
-                default:
-                    message = 'Tell me more about ' + action;
-            }
-
-            addMessage('user', message);
-
-            setTimeout(() => {
-                const response = getAIResponse(message);
-                addMessage('ai', response.text, response.quickActions);
-            }, 1000);
+            messageDiv.appendChild(bubbleDiv)
+            chatMessages.appendChild(messageDiv)
+            chatMessages.scrollTop = chatMessages.scrollHeight
         }
 
         function getAIResponse(message) {
-            // Simple response logic - in a real app this would call an API
-            const lowerMessage = message.toLowerCase();
-
-            if (lowerMessage.includes('bank') || lowerMessage.includes('choose')) {
+            var lowerMessage = message.toLowerCase()
+            if (lowerMessage.indexOf('bank') !== -1 || lowerMessage.indexOf('choose') !== -1) {
                 return {
-                    text: 'When choosing a bank in Slovakia, consider: branch locations, English services, monthly fees, digital banking quality, and international transfer costs. SLSP has the largest branch network, VÚB is good for EU citizens, and Tatra banka offers the best digital experience.',
+                    text: 'When choosing a bank, consider branch locations, English services, monthly fees, digital banking quality, and international transfer costs. Large national banks and digital banks can both be good options.',
                     quickActions: [
-                        { label: 'SLSP', action: 'slsp' },
-                        { label: 'VÚB Banka', action: 'vub' },
-                        { label: 'Tatra banka', action: 'tatra' }
+                        { label: 'Documents', action: 'documents' },
+                        { label: 'Fees', action: 'fees' }
                     ]
-                };
-            } else if (lowerMessage.includes('document') || lowerMessage.includes('open')) {
+                }
+            } else if (lowerMessage.indexOf('document') !== -1 || lowerMessage.indexOf('open') !== -1) {
                 return {
-                    text: 'To open an account in Slovakia you typically need: valid passport, proof of Slovak address (rental contract), proof of legal stay (visa/residence permit), and sometimes proof of income or employment. Some banks may require an initial deposit.',
+                    text: 'To open an account you typically need a valid passport, proof of address, proof of legal stay, and sometimes proof of income or student status. Some banks allow starting the process online.',
                     quickActions: [
-                        { label: 'SLSP documents', action: 'slsp-docs' },
-                        { label: 'VÚB documents', action: 'vub-docs' },
-                        { label: 'Tatra banka documents', action: 'tatra-docs' }
+                        { label: 'Fees', action: 'fees' },
+                        { label: 'Visit branch', action: 'visit' }
                     ]
-                };
-            } else if (lowerMessage.includes('fee') || lowerMessage.includes('tariff')) {
+                }
+            } else if (lowerMessage.indexOf('fee') !== -1 || lowerMessage.indexOf('tariff') !== -1) {
                 return {
-                    text: 'Bank fees in Slovakia vary. Monthly account maintenance is typically €2-5, card issuance €5-10, ATM withdrawals €1-2 (free at own bank ATMs), and international transfers 1-2% of amount. Student accounts often have reduced fees.',
+                    text: 'Account fees vary, but basic accounts usually have low monthly fees and free cards. Digital-only banks may offer cheaper international payments.',
                     quickActions: [
-                        { label: 'SLSP tariffs', action: 'slsp-tariffs' },
-                        { label: 'VÚB tariffs', action: 'vub-tariffs' },
-                        { label: 'Tatra banka tariffs', action: 'tatra-tariffs' }
+                        { label: 'Choose a bank', action: 'choose-bank' },
+                        { label: 'Open account', action: 'open-account' }
                     ]
-                };
+                }
             } else {
                 return {
-                    text: 'I can help with choosing a bank in Slovakia, opening an account, understanding fees, and other banking questions. What exactly are you interested in?',
+                    text: 'I can help with choosing a bank, opening an account, understanding fees, and other banking questions. What exactly are you interested in?',
                     quickActions: [
                         { label: 'Choose a bank', action: 'choose-bank' },
                         { label: 'Open account', action: 'open-account' },
                         { label: 'Documents', action: 'documents' },
                         { label: 'Fees', action: 'fees' }
                     ]
-                };
+                }
             }
         }
-    });
+
+        function sendMessage() {
+            var message = chatInput.value.trim()
+            if (!message) return
+            addMessage('user', message)
+            chatInput.value = ''
+            setTimeout(function() {
+                var response = getAIResponse(message)
+                addMessage('ai', response.text, response.quickActions)
+            }, 600)
+        }
+
+        function handleQuickAction(action) {
+            var message
+            var quickActions = null
+            if (action === 'choose-bank') {
+                message = 'Help me choose a bank.'
+                quickActions = [
+                    { label: 'Documents', action: 'documents' },
+                    { label: 'Fees', action: 'fees' }
+                ]
+            } else if (action === 'open-account') {
+                message = 'Tell me about the account opening procedure for foreigners.'
+                quickActions = [
+                    { label: 'Documents', action: 'documents' },
+                    { label: 'Visit branch', action: 'visit' }
+                ]
+            } else if (action === 'documents') {
+                message = 'What documents are needed to open an account?'
+            } else if (action === 'fees') {
+                message = 'What are the typical bank fees?'
+            } else {
+                message = 'Tell me more about ' + action
+            }
+            addMessage('user', message)
+            setTimeout(function() {
+                var response = getAIResponse(message)
+                addMessage('ai', response.text, response.quickActions)
+            }, 600)
+        }
+    })
 </script>
 </body>
 </html>
