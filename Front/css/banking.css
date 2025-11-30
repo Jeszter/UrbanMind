@@ -15,7 +15,6 @@
     --color-chat-user: #f0f4ff;
     --color-bank-card: #5a73e3;
     --color-bank-card-secondary: #9eb8f7;
-
     --border-radius-soft: 18px;
     --border-radius-nav: 12px;
     --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -58,7 +57,6 @@ h1, h2, h3 {
     padding: 0 25px;
 }
 
-/* HEADER & NAVIGATION */
 .header {
     background: var(--color-card-bg);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
@@ -123,14 +121,12 @@ h1, h2, h3 {
     color: var(--color-primary-blue);
 }
 
-/* Active link */
 .nav-menu a.active {
     color: var(--color-primary-blue);
     background-color: var(--color-nav-hover);
     box-shadow: var(--shadow-nav);
 }
 
-/* Dropdown menu */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -201,7 +197,6 @@ h1, h2, h3 {
     z-index: 101;
 }
 
-/* HERO SECTION - FULL SCREEN */
 .hero {
     position: relative;
     background-color: var(--color-card-bg);
@@ -212,7 +207,6 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-/* Background waves and elements */
 .hero::before, .hero::after {
     content: '';
     position: absolute;
@@ -220,17 +214,23 @@ h1, h2, h3 {
     border-radius: 50%;
     opacity: 0.1;
 }
-.hero::before { /* Large wave left/back */
-    width: 700px; height: 700px;
-    top: -300px; left: -200px;
+
+.hero::before {
+    width: 700px;
+    height: 700px;
+    top: -300px;
+    left: -200px;
     transform: rotate(-10deg);
 }
-.hero::after { /* Small wave right */
-    width: 450px; height: 450px;
-    bottom: -200px; right: -150px;
+
+.hero::after {
+    width: 450px;
+    height: 450px;
+    bottom: -200px;
+    right: -150px;
     transform: rotate(20deg);
 }
-/* Crosses and circles (imitation) */
+
 .hero-decoration {
     position: absolute;
     font-size: 1.5em;
@@ -238,11 +238,22 @@ h1, h2, h3 {
     opacity: 0.5;
     z-index: 1;
 }
-.hero .plus-top { top: 30px; left: 50px; }
-.hero .circle-mid { top: 150px; left: 300px; }
-.hero .plus-bottom { bottom: 50px; right: 200px; }
 
-/* Abstract background with "blots" */
+.hero .plus-top {
+    top: 30px;
+    left: 50px;
+}
+
+.hero .circle-mid {
+    top: 150px;
+    left: 300px;
+}
+
+.hero .plus-bottom {
+    bottom: 50px;
+    right: 200px;
+}
+
 .hero-bg {
     position: absolute;
     top: 0;
@@ -285,7 +296,6 @@ h1, h2, h3 {
     transform: translate(-50%, -50%);
 }
 
-/* New decorative elements */
 .decoration-circle {
     position: absolute;
     border-radius: 50%;
@@ -336,7 +346,6 @@ h1, h2, h3 {
     right: 8%;
 }
 
-/* Background for robot */
 .robot-container {
     position: relative;
     flex: 0 0 45%;
@@ -415,7 +424,6 @@ h1, h2, h3 {
     background-color: #4a63d0;
 }
 
-/* AI ASSISTANT SECTION */
 .ai-assistant {
     padding: 80px 0;
     position: relative;
@@ -611,7 +619,6 @@ h1, h2, h3 {
     background-color: #4a63d0;
 }
 
-/* BANK CARDS SECTION */
 .bank-cards {
     padding: 80px 0;
     position: relative;
@@ -781,7 +788,6 @@ h1, h2, h3 {
     transform: translateY(-2px);
 }
 
-/* ACCOUNT OPENING SECTION */
 .account-opening {
     padding: 80px 0;
     position: relative;
@@ -885,7 +891,6 @@ h1, h2, h3 {
     color: var(--color-light-text);
 }
 
-/* LOCATION DETECTION SECTION */
 .location-detection {
     padding: 80px 0;
     position: relative;
@@ -924,16 +929,27 @@ h1, h2, h3 {
     left: -80px;
 }
 
+.location-detection .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .location-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 40px;
+    justify-content: center;
+    gap: 20px;
     position: relative;
     z-index: 1;
+    text-align: center;
 }
 
 .location-text {
-    flex: 1;
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .location-visual {
@@ -980,6 +996,7 @@ h1, h2, h3 {
     border-radius: var(--border-radius-soft);
     margin-top: 20px;
     display: none;
+    text-align: left;
 }
 
 .detected-location.active {
@@ -1014,7 +1031,12 @@ h1, h2, h3 {
     transform: translateY(-2px);
 }
 
-/* FOOTER */
+.location-note {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--color-light-text);
+}
+
 .footer {
     margin-top: auto;
     background-color: var(--color-primary-blue);
@@ -1050,22 +1072,27 @@ h1, h2, h3 {
     font-size: 1em;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .btn-footer:hover {
     background-color: #4a5676;
     transform: translateY(-2px);
 }
 
-/* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
     animation: fadeIn 0.8s ease forwards;
 }
 
-/* Responsiveness */
 @media (max-width: 850px) {
     .hero {
         height: auto;
@@ -1077,24 +1104,29 @@ h1, h2, h3 {
         flex-direction: column;
         text-align: center;
     }
+
     .hero-text {
         max-width: 100%;
-        order: 2; /* Text at bottom on mobile */
+        order: 2;
     }
+
     .robot-container {
         flex: none;
         max-width: 80%;
         margin-bottom: 40px;
-        order: 1; /* Image at top on mobile */
+        order: 1;
     }
+
     .hero-text h1 {
         font-size: 2.5em;
     }
+
     .sections-heading {
         font-size: 1.8em;
     }
+
     .nav-menu {
-        display: none; /* Hide menu */
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -1106,16 +1138,20 @@ h1, h2, h3 {
         align-items: center;
         z-index: 99;
     }
+
     .nav-menu.active {
         display: flex;
     }
+
     .nav-menu li {
         margin: 15px 0;
     }
+
     .nav-menu > li > a {
         padding: 15px 30px;
         font-size: 1.1em;
     }
+
     .dropdown-menu {
         position: static;
         opacity: 1;
@@ -1125,29 +1161,35 @@ h1, h2, h3 {
         background: transparent;
         display: none;
     }
+
     .nav-menu li:hover .dropdown-menu {
         display: block;
     }
+
     .mobile-menu-btn {
         display: block;
     }
+
     .bank-cards-grid {
         grid-template-columns: 1fr;
     }
+
     .steps-container {
         grid-template-columns: 1fr;
     }
+
     .location-content {
         flex-direction: column;
     }
 
-    /* Adaptation of decorative elements for mobile */
     .hero-decoration, .decoration-circle, .dots-pattern {
         display: none;
     }
+
     .hero::before, .hero::after {
         display: none;
     }
+
     .bank-circle, .account-circle, .location-circle {
         display: none;
     }
